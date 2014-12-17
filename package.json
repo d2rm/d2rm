@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pyarmak/DOTA-2-Replay-Manager-Public.git"
+    "url": "https://github.com/d2rm/d2rm.git"
   },
   "main": "app://d2rm/index.html",
   "node-main": "js/node-main.js",
@@ -54,11 +54,11 @@
     "node-webkit-updater": "0.0.14",
     "tarball-extract": "0.0.3"
   },
-  "manifestUrl": "https://raw.githubusercontent.com/pyarmak/DOTA-2-Replay-Manager-Public/master/package.json",
+  "manifestUrl": "https://raw.githubusercontent.com/d2rm/d2rm/master/package.json",
   "packages": {
-    "win": "https://github.com/pyarmak/DOTA-2-Replay-Manager-Public/releases/download/0.0.1/D2RM.exe",
-    "linux64": "https://raw.githubusercontent.com/pyarmak/DOTA-2-Replay-Manager-Public/releases/download/0.0.1/D2RM-linux64.tar.gz",
-    "linux32": "https://raw.githubusercontent.com/pyarmak/DOTA-2-Replay-Manager-Public/releases/download/0.0.1/D2RM-linux32.tar.gz",
-    "mac": "https://raw.githubusercontent.com/pyarmak/DOTA-2-Replay-Manager-Public/releases/download/0.0.1/D2RM-mac.zip"
+    "win": "https://raw.githubusercontent.com/d2rm/releases/download/0.0.1/D2RM.exe",
+    "linux64": "https://raw.githubusercontent.com/d2rm/releases/download/0.0.1/D2RM-linux64.tar.gz",
+    "linux32": "https://raw.githubusercontent.com/d2rm/releases/download/0.0.1/D2RM-linux32.tar.gz",
+    "mac": "https://raw.githubusercontent.com/d2rm/releases/download/0.0.1/D2RM-mac.zip"
   }
 }
