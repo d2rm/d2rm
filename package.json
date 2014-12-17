@@ -1,0 +1,64 @@
+{
+  "name": "D2RM",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pyarmak/DOTA-2-Replay-Manager-Public.git"
+  },
+  "main": "app://d2rm/index.html",
+  "node-main": "js/node-main.js",
+  "window": {
+    "title": "DOTA 2 Replay Manager",
+    "icon": "images/icon.png",
+    "toolbar": false,
+    "frame": false,
+    "width": 890,
+    "height": 600,
+    "min_width": 890,
+    "min_height": 600,
+    "show": false,
+    "resizable": true,
+    "position": "center"
+  },
+  "single-instance": true,
+  "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36",
+  "dependencies": {
+    "async": "0.9.0",
+    "big-number": "~0.3.1",
+    "cheerio": "~0.17.0",
+    "jade": "^1.8.1",
+    "moment": "~2.8.4",
+    "nedb": "~0.11.1",
+    "node-uuid": "~1.4.1",
+    "request": "~2.40.0",
+    "retry": "~0.6.0",
+    "seek-bzip": "~1.0.3",
+    "universal-analytics": "~0.3.4",
+    "winston": "~0.8.3"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-coffeelint": "0.0.13",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-coffee": "~0.11.1",
+    "grunt-contrib-compass": "0.9.1",
+    "grunt-contrib-compress": "0.10.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-cssmin": "0.10.0",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-uglify": "0.5.1",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-node-webkit-builder": "~0.2.2",
+    "grunt-regex-replace": "~0.2.6",
+    "grunt-shell": "~1.0.1",
+    "node-webkit-updater": "0.0.14",
+    "tarball-extract": "0.0.3"
+  },
+  "manifestUrl": "https://raw.githubusercontent.com/pyarmak/DOTA-2-Replay-Manager-Public/master/package.json",
+  "packages": {
+    "win": "https://github.com/pyarmak/DOTA-2-Replay-Manager-Public/releases/download/0.0.1/D2RM.exe",
+    "linux64": "https://raw.githubusercontent.com/pyarmak/DOTA-2-Replay-Manager-Public/releases/download/0.0.1/D2RM-linux64.tar.gz",
+    "linux32": "https://raw.githubusercontent.com/pyarmak/DOTA-2-Replay-Manager-Public/releases/download/0.0.1/D2RM-linux32.tar.gz",
+    "mac": "https://raw.githubusercontent.com/pyarmak/DOTA-2-Replay-Manager-Public/releases/download/0.0.1/D2RM-mac.zip"
+  }
+}
