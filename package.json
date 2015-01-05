@@ -1,6 +1,6 @@
 {
   "name": "D2RM",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/d2rm/d2rm.git"
@@ -56,9 +56,9 @@
   },
   "manifestUrl": "https://raw.githubusercontent.com/d2rm/d2rm/master/package.json",
   "packages": {
-    "win": "https://github.com/d2rm/d2rm/releases/download/0.0.2/D2RM.exe",
-    "linux64": "https://github.com/d2rm/d2rm/releases/download/0.0.2/D2RM-linux64.tar.gz",
-    "linux32": "https://github.com/d2rm/d2rm/releases/download/0.0.2/D2RM-linux32.tar.gz",
-    "mac": "https://github.com/d2rm/d2rm/releases/download/0.0.2/D2RM-mac.zip"
+    "win": "https://github.com/d2rm/d2rm/releases/download/0.1.0/D2RM.exe",
+    "linux64": "https://github.com/d2rm/d2rm/releases/download/0.1.0/D2RM-linux64.tar.gz",
+    "linux32": "https://github.com/d2rm/d2rm/releases/download/0.1.0/D2RM-linux32.tar.gz",
+    "mac": "https://github.com/d2rm/d2rm/releases/download/0.1.0/D2RM-mac.zip"
   }
 }
