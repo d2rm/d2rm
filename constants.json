@@ -1,0 +1,200 @@
+{
+    "version": "1.0",
+    "gold_reasons":{
+        "0": "Other",
+        "1": "Deaths",
+        "2": "Buybacks",
+        "5": "Abandons",
+        "6": "Sells",
+        "11": "Structures",
+        "12": "Heroes",
+        "13": "Creeps",
+        "14": "Roshan",
+        "15": "Couriers"
+    },
+    "xp_reasons":{
+        "0": "Other",
+        "1": "Heroes",
+        "2": "Creeps",
+        "3": "Roshan"
+    },
+    "skillshots":{
+        "mirana_arrow":true,
+        "pudge_meat_hook":true,
+        "rattletrap_hookshot":true,
+        "invoker_sun_strike":true
+    },
+    "runes": {
+        "0": {
+            "name": "Double Damage",
+            "img": ""
+        },
+        "1": {
+            "name": "Haste",
+            "img": ""
+        },
+        "2": {
+            "name": "Illusion",
+            "img": ""
+        },
+        "3": {
+            "name": "Invisibility",
+            "img": ""
+        },
+        "4": {
+            "name": "Regeneration",
+            "img": ""
+        },
+        "5": {
+            "name": "Bounty",
+            "img": ""
+        }
+    },
+    "parse_status": {
+        "0": "Queued",
+        "1": "Unavailable",
+        "2": "Parsed",
+        "3": "Untracked"
+    },
+    "anonymous_account_id": 4294967295,
+    "lobbies" : [
+        {
+            "id" : -1,
+            "name" : "Invalid"
+        },
+        {
+            "id" : 0,
+            "name" : "Public matchmaking"
+        },
+        {
+            "id" : 1,
+            "name" : "Practice"
+        },
+        {
+            "id" : 2,
+            "name" : "Tournament"
+        },
+        {
+            "id" : 3,
+            "name" : "Tutorial"
+        },
+        {
+            "id" : 4,
+            "name" : "Co-op with bots"
+        },
+        {
+            "id" : 5,
+            "name" : "Team match"
+        },
+        {
+            "id" : 6,
+            "name" : "Solo Queue"
+        },
+        {
+            "id" : 7,
+            "name" : "Ranked"
+        },
+        {
+            "id" : 8,
+            "name" : "Solo Mid 1vs1"
+        }
+    ],
+    "modes": {
+        "0": {
+            "id": 0,
+            "name": "Unknown"
+        },
+        "1": {
+            "id": 1,
+            "name": "All Pick"
+        },
+        "2": {
+            "id": 2,
+            "name": "Captains Mode"
+        },
+        "3": {
+            "id": 3,
+            "name": "Random Draft"
+        },
+        "4": {
+            "id": 4,
+            "name": "Single Draft"
+        },
+        "5": {
+            "id": 5,
+            "name": "All Random"
+        },
+        "6": {
+            "id": 6,
+            "name": "?? INTRO/DEATH ??"
+        },
+        "7": {
+            "id": 7,
+            "name": "The Diretide"
+        },
+        "8": {
+            "id": 8,
+            "name": "Reverse Captains Mode"
+        },
+        "9": {
+            "id": 9,
+            "name": "Greeviling"
+        },
+        "10": {
+            "id": 10,
+            "name": "Tutorial"
+        },
+        "11": {
+            "id": 11,
+            "name": "Mid Only"
+        },
+        "12": {
+            "id": 12,
+            "name": "Least Played"
+        },
+        "13": {
+            "id": 13,
+            "name": "New Player Pool"
+        },
+        "14": {
+            "id": 14,
+            "name": "Compendium Matchmaking"
+        },
+        "15": {
+            "id": 15,
+            "name": "Custom"
+        },
+        "16": {
+            "id": 16,
+            "name": "Captains Draft"
+        },
+        "17": {
+            "id": 17,
+            "name": "Balanced Draft"
+        },
+        "18": {
+            "id": 18,
+            "name": "Ability Draft"
+        },
+        "19": {
+            "id": 19,
+            "name": "?? Event ??"
+        },
+        "20": {
+            "id": 20,
+            "name": "All Random Death Match"
+        },
+        "21": {
+            "id": 21,
+            "name": "1vs1 Solo Mid"
+        },
+        "22": {
+            "id": 22,
+            "name": "Ranked All Pick"
+        }
+    },
+    "regions": "https://raw.githubusercontent.com/kronusme/dota2-api/master/data/regions.json",
+    "items": "http://www.dota2.com/jsfeed/itemdata",
+    "heroes": "https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?language=en-us&key=",
+    "abilities": "http://www.dota2.com/jsfeed/abilitydata"
+}
