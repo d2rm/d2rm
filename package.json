@@ -1,6 +1,6 @@
 {
   "name": "D2RM",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/d2rm/d2rm.git"
@@ -34,7 +34,9 @@
     "retry": "~0.6.0",
     "seek-bzip": "~1.0.3",
     "universal-analytics": "~0.3.4",
-    "winston": "~0.8.3"
+    "winston": "~0.8.3",
+    "steam": "~0.6.7",
+    "dota2": "d2rm/node-dota2"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
@@ -56,9 +58,9 @@
   },
   "manifestUrl": "https://raw.githubusercontent.com/d2rm/d2rm/master/package.json",
   "packages": {
-    "win": "https://github.com/d2rm/d2rm/releases/download/0.1.0/D2RM.exe",
-    "linux64": "https://github.com/d2rm/d2rm/releases/download/0.1.0/D2RM-linux64.tar.gz",
-    "linux32": "https://github.com/d2rm/d2rm/releases/download/0.1.0/D2RM-linux32.tar.gz",
-    "mac": "https://github.com/d2rm/d2rm/releases/download/0.1.0/D2RM-mac.zip"
+    "win": "https://github.com/d2rm/d2rm/releases/download/0.2.0/D2RM.exe",
+    "linux64": "https://github.com/d2rm/d2rm/releases/download/0.2.0/D2RM-linux64.tar.gz",
+    "linux32": "https://github.com/d2rm/d2rm/releases/download/0.2.0/D2RM-linux32.tar.gz",
+    "mac": "https://github.com/d2rm/d2rm/releases/download/0.2.0/D2RM-mac.zip"
   }
 }

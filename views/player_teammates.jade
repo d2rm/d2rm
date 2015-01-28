@@ -1,0 +1,19 @@
+extend player
+block playercontent
+  script.
+    var data = !{JSON.stringify(table)};
+    $('.dataTable').dataTable({
+      "data": data,
+      "autoWidth": false,
+      "order": [[0, "asc"]],
+      "deferRender": true
+    });
+  h3 Teammates
+  table.table#playerTeammatesTable.dataTable
+    thead
+        tr
+          th Name
+          th Games
+          th Wins
+          th Losses
+          th Winrate

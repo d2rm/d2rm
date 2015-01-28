@@ -1,0 +1,45 @@
+html,
+body
+    height: 100%
+    overflow: hidden
+    width: 100%
+    background: #1b1b1b
+    cursor: default
+    font-family: 'Helvetica Neue', Arial, sans-serif
+    font-size: 13px
+    @include font-smoothing(antialiased)
+    color: white
+  
+    h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, thead, label, p, .dataTables_info
+        color: #000000
+
+#main
+    & > table
+        width: 100%
+    margin-top: 48px
+    width: 100%
+
+    #SideBar, #ContentWrapper
+        @include scrollable()
+      
+    td
+        vertical-align: top
+
+    td.sidebar
+        width: 194px
+        background: #121212
+        border-right: 1px solid black
+
+    #SideBar, #ContentWrapper
+        padding: 12px
+
+section.mainSection
+    height: 100%
+    margin-top: 36px
+
+button
+    outline: 0
+    &:hover
+        cursor: pointer
+    &:focus
+        outline: 0

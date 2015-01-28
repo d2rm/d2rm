@@ -1,0 +1,32 @@
+extend player
+block playercontent
+  h3 Activity
+  p
+    button.btn.btn-default#prev <
+    button.btn.btn-default#next >
+  div#cal-heatmap
+  h3 Matches
+  p#no-matches-notification(style="display: block;") No matches found for the selected day.
+  div#match-container(style="display: none;")
+    table.table#playerMatchesTable.dataTable
+      thead
+        tr
+          th Match ID
+          th Hero
+          th Result
+          th Game Mode
+          th Duration
+          th Played
+          th K
+          th D
+          th A
+          th LH
+          th DN
+          th GPM
+          th XPM
+          th HD
+          th TD
+          th Status
+          th Saved
+  script.
+    heatmap.createHeatmap(player.account_id, data);

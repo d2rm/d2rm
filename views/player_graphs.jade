@@ -1,0 +1,23 @@
+extend player
+block playercontent
+  script.
+    if(player.account_id == Number(Settings.get('steam-account-id'))) {
+      charts.generatePlayerMMRChart(function (err) {
+        if (err) return console.log(err);
+        $('#chart-mmr-container').show()
+        $('#soon').hide()
+      });
+    }
+  #chart-mmr-container.chart-container(style="display: none;")
+    h3 MMR
+    #MMR_chart
+  #chart-winrate-container.chart-container(style="display: none;")
+    h3 Win Rate
+    #winrate_chart
+  #chart-gpm-container.chart-container(style="display: none;")
+    h3 GPM
+    #gpm_chart
+  #chart-xpm-container.chart-container(style="display: none;")
+    h3 XPM
+    #xpm_chart
+  h3#soon Coming soon... Maybe.

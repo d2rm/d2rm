@@ -1,0 +1,34 @@
+extend layout
+  
+block content
+  script.
+    var data = !{JSON.stringify(data)}
+    var player = !{JSON.stringify(player)}
+    if(sidebar.getActiveItem().hasClass('profile')) $('#back').hide();
+    
+  .row
+      if player.avatarmedium
+        img(src='#{player.avatarmedium}' style="float: right;").thumbnail
+      - var name = player.personaname || player.account_id
+      h1(style='font-weight: 700;' class='player_info' id="#{player.account_id}")
+       i(class="Btn fa fa-arrow-circle-o-left" title="Back" id="back")
+       |  #{name}
+      table.table.invertedTable.table-condensed(style='float: left; width:190px;')
+        thead
+          tr
+            td Record
+            td Win Rate
+        tbody
+          tr
+            td #{player.win || 0 }-#{player.lose || 0}
+            td #{(player.win/player.games*100).toFixed(2)}%
+     
+  .row(style='clear: both;')
+   .col-md-12
+     ul.nav.nav-tabs#player-nav-tabs
+       each val, key in tabs
+         li(class= (route == key ? 'active' : ''))
+             a(href="#" class=key data-id="#{player.account_id}")= val.name
+  block playercontent
+  script.
+    viewHelper.bindEvents();

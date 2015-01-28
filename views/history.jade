@@ -1,0 +1,50 @@
+extend layout
+block content
+  script.
+    var data = !{JSON.stringify(data)};
+    $('.dataTable').dataTable({
+      "data": data,
+      "order": [[1, "desc"]],
+      "deferRender": true,
+      "columns": [
+        { data: "match_id" },
+        { data: {
+          _: "last_watched.display",
+          sort: "last_watched.timestamp"
+        } },
+        { data: "game_mode" },
+        { data: "region" },
+        { data: "duration" },
+        { data: "result" },
+        { data: {
+          _: "played.display",
+          sort: "played.timestamp"
+        } },
+        { data: "status" },
+        { data: "saved" }
+      ],
+      "createdRow": function (row, data, index) {
+        if (data.result == "Radiant Victory") {
+          $(row).addClass('success');
+        } else {
+          $(row).addClass('danger');
+        }
+      }
+    });
+  script(src='js/viewHelper.js')
+  h3 Recently Watched Matches
+  #row
+    #col-md-2
+    #col-mid-8
+      table.table#matchesTable.dataTable
+        thead
+          tr
+            th Match ID
+            th Last Watched
+            th Game Mode
+            th Region
+            th Duration
+            th Result
+            th Played
+            th Status
+            th Saved

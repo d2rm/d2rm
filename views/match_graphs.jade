@@ -1,0 +1,39 @@
+extend match_base
+  
+append content 
+  script.
+    var data = !{JSON.stringify(data)}
+    $(document).ready(function() {
+      $('button').on('click', function() {
+        var id = $(this).prop('id');
+        var selector = "#chart-" + id + "-container";
+        $('.chart-container').hide();
+        $(selector).show();
+        $('.btn').removeClass('active focus');
+        $(this).addClass('active focus');
+      });
+      charts.generateMatchCharts(data);
+      $('#diff').click();
+    });
+  .row
+      if match.parsed_data
+        .btn-group(role='group')
+          br
+          button#diff.btn.btn-default(type='button') Advantage
+          button#gold.btn.btn-default(type='button') Gold
+          button#xp.btn.btn-default(type='button') XP
+          button#lh.btn.btn-default(type='button') LH
+        #chart-diff-container.col-md-12.chart-container
+          h3 Radiant Advantage
+          #chart-diff
+        #chart-gold-container.col-md-12.chart-container
+          h3 Gold
+          #chart-gold
+        #chart-xp-container.col-md-12.chart-container
+          h3 XP
+          #chart-xp
+        #chart-lh-container.col-md-12.chart-container
+          h3 LH
+          #chart-lh
+      else
+        h1 This match has no parsed data!

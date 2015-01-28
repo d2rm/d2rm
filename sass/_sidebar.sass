@@ -1,0 +1,51 @@
+#SideBar
+    padding: 10px
+    width: 179px
+    background: #fff
+    height: 100%
+    border-right: 1px solid #f0f0f0
+    overflow-y: scroll
+    overflow-x: hidden
+    ul
+        margin-bottom: 5px
+
+        .ui-state-highlight
+            background: #eee
+            box-shadow: none
+            border: none
+            height: 13px
+        li
+            padding: 7px 5px
+            color: rgba(black, .8)
+            font-size: 13px
+            font-weight: 400
+
+            .fa-align-justify
+                float: right
+
+            i
+                margin-right: 5px
+                opacity: 0.6
+
+            &:first-of-type
+                margin-top: 0
+            &:last-of-type
+                margin-bottom: 0
+
+            &:not(.sep):not(.active):hover
+                cursor: pointer
+                background: rgba(black, .05)
+                color: black
+            &.sep
+                padding: 0
+
+            &.active
+                border-left: 3px solid #b8b8b8
+                color: #aaa
+                text-indent: 3px
+                transition: all 0.2s
+
+            hr
+                border: 0
+                border-top: 1px solid rgba(black, .05)
+                height: 0

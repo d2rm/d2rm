@@ -1,0 +1,22 @@
+extend player
+block playercontent
+  script.
+    var data = !{JSON.stringify(table)};
+    $('.dataTable').dataTable({
+      "data": data,
+      "autoWidth": false,
+      "order": [[0, "asc"]],
+      "deferRender": true,
+      "aoColumnDefs": [
+        {"sClass": "hero", "aTargets": [0]}
+      ]
+    });
+  h3 Heroes
+  table.table#heroes.dataTable
+   thead
+     tr
+       th Hero
+       th Games
+       th Wins
+       th Losses
+       th Winrate

@@ -1,0 +1,280 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/vendor/jquery-ui/jquery-ui-1.10.3.custom.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/vendor/alertify/alertify.min.css">
+    <link rel="stylesheet" type="text/css" href="css/vendor/alertify/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/vendor/dataTablesBootstrap/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/vendor/jquery.qtip.min.css">
+    <link rel="stylesheet" type="text/css" href="css/vendor/c3.min.css">
+    <link rel="stylesheet" type="text/css" href="css/vendor/cal-heatmap.css">
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+</head>
+<body>
+<!--<div class="blackScreen"></div>-->
+<header>
+    <div id="Logo" class="HeaderItem FloatedLeft">
+        DOTA 2 Replay Manager
+    </div>
+    <div id="WindowButtons" class="HeaderItem FloatedRight">
+        <span class="Btn Close fa fa-times-circle" data-l10n-id="hint_close_window" title></span>
+        <span class="Btn Expand fa fa-plus-circle" data-l10n-id="hint_expand_window" title></span>
+        <span class="Btn Minimize fa fa-minus-circle" data-l10n-id="hint_minimize_window" title></span>
+    </div>
+</header>
+
+<section class="mainSection">
+    <div id="SideBar" class="FloatedLeft">
+      <div class="top-sidebar">
+        <ul>
+            <li class='profile' style="display: none;">
+                <i class='fa fa-user'></i>
+                <span data-l10n-id='profile'>My Profile</span>
+            </li>
+            <li class='tracked-players'>
+                <i class='fa fa-users'></i>
+                <span data-l10n-id='tracked_players'>Tracked Players</span>
+            </li>
+            <li class='matches'>
+                <i class='fa fa-gamepad'></i>
+                <span data-l10n-id='matches'>Match History</span>
+            </li>
+            <li class='history'>
+                <i class='fa fa-history'></i>
+                <span data-l10n-id='history'>Recently Watched</span>
+            </li>
+        </ul>
+      </div>
+      <div class="middle-sidebar">
+        <ul>
+          <li class='sep'>
+            <hr>
+          </li>
+          <li class='refresh no-page'>
+              <i class='fa fa-refresh'></i>
+              <span data-l10n-id='refresh'>Synchronize Data</span>
+          </li>
+          <li class='settings no-page'>
+            <i class='fa fa-cog'></i>
+            <span data-l10n-id='settings'>Settings</span>
+          </li>
+          <li class='donations no-page'>
+            <i class='fa fa-money'></i>
+            <span data-l10n-id='donate_us'>Donate</span>
+          </li>
+          <li class='sep'>
+            <hr>
+          </li>
+        </ul>
+      </div>
+      <div class="bottom-sidebar">
+        <ul>
+          <li class='new no-page'>
+            <i class='fa fa-plus-square'></i>
+            <span data-l10n-id='new_playlist'>New playlist</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <img id="Spinner" src="images/loading-spokes.svg" alt="Loading icon" />
+    <div id="ContentWrapper" class="FloatedLeft">
+    </div>
+
+    <div id="playlist-panel">
+        <form action="upload">
+            <fieldset>
+                <table>
+                    <tbody>
+                        <tr>
+                            <p style="font-size:15px; color:#444">Name:</p>
+                        </tr>
+                        <tr>
+                        <input style="margin-top:10px; border-radius:4px; height:25px; width: 100%" type="text" id="playListName">
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </form>
+    </div>
+
+
+    <div id="settings-panel">
+     <form>
+        <fieldset>
+            <table>
+                <colgroup width="160"></colgroup>
+                <colgroup width="370"></colgroup>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><label for="LanguageSelect">Language</label></td>
+                        <td>
+                            <select name="LanguageSelect" id="LanguageSelect" class="form-control"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="ThemeSelect">Theme</label></td>
+                        <td>
+                            <select name="ThemeSelect" id="ThemeSelect" class="form-control">
+                                <option value="light">Light</option>
+                                <option value="dark">Dark</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="APIKey">Steam Web API Key</label>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" id="APIKey" placeholder="Click the 'Get one here' button to get yours" name="api-key">
+                            <button type="button" class="btn btn-primary" role="button" aria-disabled="false" id="getAPIKey">
+                                Get one here
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="replay-folder-input">DOTA 2 Replay Folder</label></td>
+                        <td>
+                            <input type="text" class="form-control" id="replay-folder-input" placeholder="Not set..." name="replay-folder-input">
+                            <button type="button" class="btn btn-primary" role="button" aria-disabled="false" id="replay-folder-button">
+                                Browse
+                            </button>
+                            <input type="file" id="replay-folder" class="hidden-input" nwdirectory nwworkingdir="C:\Program Files (x86)\Steam\SteamApps\common\dota 2 beta\dota\replays" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="steam-folder-input">Steam Folder</label></td>
+                        <td>
+                            <input type="text" class="form-control" id="steam-folder-input" placeholder="Not set..." name="steam-folder-input">
+                            <button type="button" class="btn btn-primary" role="button" aria-disabled="false" id="steam-folder-button">
+                                Browse
+                            </button>
+                            <input type="file" id="steam-folder" class="hidden-input" nwdirectory nwworkingdir="C:\Program Files (x86)\Steam" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="steam-user">Steam Username</label></td>
+                        <td>
+                            <input type="text" class="form-control" id="steam-user" placeholder="Steam username..." name="steam-user"
+                                   title='This does not have to be your main account. A steam account is needed in order to fetch the replay URL from the DOTA 2 client.'>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="steam-password">Steam Password</label></td>
+                        <td><input type="password" class="form-control" id="steam-password" placeholder="Steam password..." name="steam-password"></td>
+                    </tr>
+                    <tr><td colspan="2" style="padding-top: 0px;">
+                        <table>
+                            <colgroup width="160"></colgroup>
+                            <colgroup width="105"></colgroup>
+                            <colgroup width="160"></colgroup>
+                            <colgroup width="105"></colgroup>
+                            <tbody>
+                                <tr>
+                                    <td><label for="track-steam-account">Track Steam Account</label></td>
+                                    <td>
+                                        <input id="track-steam-account" type="checkbox" class="checkbox-settings" name="track-steam-account" title="Track the steam account provided above. This option allows access to private matches, MMR history graph and more for this account. Enabling this will make you unable to synchronize data while your DOTA 2 client is open.">
+                                    </td>
+                                    <td><label for="hide-test-matches">Hide Irrelevant Matches</label></td>
+                                    <td>
+                                        <input id="hide-test-matches" type="checkbox" class="checkbox-settings" name="hide-test-matches" title="Hide matches with only 1 human player in them. Useful only when the 'Track Steam Account' option is enabled.">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="save-all-replays">Parse All Replays</label></td>
+                                    <td>
+                                        <input id="save-all-replays" type="checkbox" class="checkbox-settings" name="save-all-replays" title="Automatically download and parse all replays when synchronizing data.">
+                                    </td>
+                                    <td><label for="delete-replays">Delete Parsed Replays</label></td>
+                                    <td>
+                                        <input id="delete-replays" type="checkbox" class="checkbox-settings" name="delete-replays" title="Delete downloaded replays after they're done parsing. Useful If you want to conserve space while automatically parsing all replays. You can still manually save replays with this option enabled.">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="save-all-matches">Scrape Full History</label></td>
+                                    <td>
+                                        <input id="save-all-matches" type="checkbox" class="checkbox-settings" name="save-all-matches" title="Scrape the full match history for tracked players as opposed to the latest 100 matches.">
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td></tr>
+                    <!--<tr>-->
+                        <!--<td><label for="enable-notifications">Enable Notification</label></td>-->
+                        <!--<td>-->
+                            <!--<input id="enable-notifications" type="checkbox" class="checkbox-settings" name="enable-notification">-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <tr>
+                        <td><label for="userID">Users to Track</label></td>
+                        <td>
+                            <input type="text" class="form-control" id="userID" placeholder="Steam user ID to track..." name="user-id"
+                                    title="Accepted formats: 32bit(67920622), 64bit(76561198028186350), vanity url(nooblazor)">
+                            <button type="button" class="btn btn-primary" role="button" aria-disabled="false" id="addUser">
+                                Add user
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label style="margin-bottom: 20px;">Tracked Users</label></td>
+                        <td><ul class="list-group" id="userList"></ul></td>
+                    </tr>
+                    <tr>
+                        <td><label>Developer Tools</label></td>
+                        <td>
+                            <button id="devTools" type="button" class="btn btn-info" role="button" aria-disabled="false">
+                                <span>Launch</span>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>Reset Database</label></td>
+                        <td>
+                            <button id="resetDatabase" type="button" class="btn btn-danger" role="button" aria-disabled="false">
+                                <span>Clear</span>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>
+</div>
+</section>
+
+<!-- SCRIPTS -->
+<script src="js/vendor/jquery-2.1.1.min.js"></script>
+<script src="js/vendor/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script>
+<script>
+// Resolve name collision between jQuery UI and Twitter Bootstrap
+$.widget.bridge('uitooltip', $.ui.tooltip);
+</script>
+<script src="js/vendor/d3.min.js"></script>
+<script src="js/vendor/tooltip.js"></script>
+<script src="js/vendor/moment.min.js"></script>
+<script src="js/vendor/alertify.min.js"></script>
+<script src="js/vendor/jquery.dataTables.min.js"></script>
+<script src="js/vendor/dataTables.bootstrap.min.js"></script>
+<script src="js/vendor/numeral.min.js"></script>
+<script src="js/vendor/jquery.qtip.min.js"></script>
+<script src="js/vendor/c3.min.js"></script>
+<script src="js/vendor/cal-heatmap.js"></script>
+<script src="js/app.js"></script>
+<!---->
+</body>
+</html>
