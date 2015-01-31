@@ -268,7 +268,7 @@ DotaUtils = (function() {
             Steam = new steam.SteamClient();
             Dota2 = new dota2.Dota2Client(Steam, false);
             logger.warn("[DOTA] request timed out.");
-            return logger.warn("STEAM TIMEOUT");
+            return alertify.error("The request took too long. Please try again later.");
         }, 15000);
     };
     
@@ -363,7 +363,14 @@ DotaUtils = (function() {
             });
         });
     };
-    
+
+    /**
+     * 
+     * @param {int} account_id
+     * @param {int} match_id
+     * @param {boolean} solo
+     * @param {function} cb
+     */
     DotaUtils.checkIfMatchInMMRData = function(account_id, match_id, solo, cb) {
         var type = (solo) ? "solo_MMR" : "team_MMR";
         var query = {account_id: account_id};

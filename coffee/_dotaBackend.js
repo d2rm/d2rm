@@ -65,7 +65,22 @@ Backend = (function() {
                 async.mapSeries(account_ids, function (account_id, cb2) {
                     if(account_id == parseInt(Settings.get('steam-account-id'))) {
                         logger.debug('scraping MMR for ' + account_id);
-                        self.clientScrapeMMR(function(err) {cb2(err);});
+                        db.players.findOne({account_id: account_id}, function(err, player) {
+                            if(err) return cb2(err);
+                            DotaUtils.getLatestMatchId(account_id, function(err, last_db_match) {
+                                if(err || player.full_history == 1) last_db_match = 0;
+                                self.clientScrapeMMR(function(err) {
+                                    db.players.update({
+                                        account_id: account_id
+                                    }, {
+                                        $set: {
+                                            full_history: 0
+                                        }
+                                    });
+                                    cb2(err);
+                                }, last_db_match);
+                            });
+                        });
                     } else {
                         self.checkAPIavailability(account_id, function (available) {
                             if (available) {
@@ -505,7 +520,7 @@ Backend = (function() {
         };
         DotaUtils.getLatestMatchId(account_id, function(err, latest_match) {
             if(err) return logger.error(err);
-            else if(first_match_id != latest_match) {
+            else if(first_match_id >= latest_match) {
                 Dota2.getPlayerMatchHistory(account_id, last_match_id, function (err, data) {
                     if (err) return cb(err);
                     self.__clientSaveMatches(data.matches, account_id);
@@ -562,7 +577,7 @@ Backend = (function() {
         });
     };
     
-    Backend.prototype.clientScrapeMMR = function(cb, last_match_id) {
+    Backend.prototype.clientScrapeMMR = function(cb, last_db_match_id, last_match_id) { 
         var self = this;
         last_match_id = last_match_id || 0;
         logger.info('[DOTA] Scraping MMR history');
@@ -577,34 +592,39 @@ Backend = (function() {
                 var cont = matches.every(function (match) {
                     var old_MMR = match.previousRank;
                     var match_id = match.matchId;
-                    if(old_MMR) {
-                        var query = {$set: {}};
-                        query.$set["team_MMR." + match_id] = old_MMR + match.rankChange;
-                        var solo = false;
-                        if(match.soloRank) {
-                            solo = true;
-                            query.$set["solo_MMR." + match_id] = old_MMR + match.rankChange;
-                        }
-                        DotaUtils.checkIfMatchInMMRData(account_id, match_id, solo, function(err, res) {
-                            if(err) return cb('[BACKEND] Could not determine if MMR data is preset for match');
-                            else if(res) {
-                                self.cont = false;
-                                return;
+                    if(match_id >= last_db_match_id) {
+                        if (old_MMR) {
+                            var query = {$set: {}};
+                            query.$set["team_MMR." + match_id] = old_MMR + match.rankChange;
+                            var solo = false;
+                            if (match.soloRank) {
+                                solo = true;
+                                query.$set["solo_MMR." + match_id] = old_MMR + match.rankChange;
                             }
-                            db.players.update({
-                                account_id: account_id
-                            }, query, {upsert: true});
-                        });
+                            DotaUtils.checkIfMatchInMMRData(account_id, match_id, solo, function (err, res) {
+                                if (err) return cb('[BACKEND] Could not determine if MMR data is preset for match');
+                                else if (res) {
+                                    self.cont = false;
+                                    return;
+                                }
+                                db.players.update({
+                                    account_id: account_id
+                                }, query, {upsert: true});
+                            });
+                        }
+                    } else {
+                        self.cont = false;
+                        return;
                     }
                     return self.cont;
                 });
-                if(cont && matches.length == 13) self.clientScrapeMMR(cb, Number(matches[12].matchId));
+                dotaUtils.removeTimeout();
+                if (cont && matches.length == 13) self.clientScrapeMMR(cb, last_db_match_id, Number(matches[12].matchId));
                 else {
                     self.cont = false;
                     logger.info('[DOTA] Finished scraping MMR history from the client.');
                     cb(null);
                 }
-                dotaUtils.removeTimeout();
             });
         });
     };
