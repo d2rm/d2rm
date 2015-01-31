@@ -50,7 +50,7 @@ Backend = (function() {
                                 });
                             } else {
                                 logger.info('[BACKEND] Fetching full match history for ' + account_id + ' through client.');
-                                self.clientGetMatchHistory(account_id, true); // TODO: make it callback based
+                                self.clientGetMatchHistory(account_id, true, function(err) {cb(err);});
                             }
                         });
                     }, function (err) {
@@ -65,8 +65,7 @@ Backend = (function() {
                 async.mapSeries(account_ids, function (account_id, cb2) {
                     if(account_id == parseInt(Settings.get('steam-account-id'))) {
                         logger.debug('scraping MMR for ' + account_id);
-                        self.__clientScrapeMMR(); // TODO: make it callback based
-                        cb2(null);
+                        self.clientScrapeMMR(function(err) {cb2(err);});
                     } else {
                         self.checkAPIavailability(account_id, function (available) {
                             if (available) {
@@ -77,7 +76,7 @@ Backend = (function() {
                                     cb2(err);
                                 });
                             } else {
-                                self.clientGetMatchHistory(account_id, false); // TODO: make it callback based
+                                self.clientGetMatchHistory(account_id, false, function(err) {cb(err);});
                                 cb2(null);
                             }
                         });
@@ -211,7 +210,7 @@ Backend = (function() {
                 {
                     if (payload.account_id) {
                         logger.info('[BACKEND] Fetching match history for ' + payload.account_id + ' through client.');
-                        self.clientGetMatchHistory(payload.account_id, false);
+                        self.clientGetMatchHistory(payload.account_id, false, function(err) {cb(err);});
                     }
                 } else {
                     var resp = data.result.matches;
@@ -445,14 +444,14 @@ Backend = (function() {
         self.getData(self.vanity_url + Settings.get('api-key') + "&vanityurl=" + userID, cb);
     };
 
-    Backend.prototype.clientGetMatchHistory = function(account_id, full) {
+    Backend.prototype.clientGetMatchHistory = function(account_id, full, cb) {
         var self = this;
         DotaUtils.assureSteamConnection(function() {
             logger.info("[DOTA] requesting match history data of %s", account_id);
             // Try to get match history for 15 sec, else give up and try again later.
             dotaUtils.setTimeout();
-            if(full) self.__clientScrapeFullMatchHistory(account_id);
-            else self.__clientUpdateMatchHistory(account_id);
+            if(full) self.__clientScrapeFullMatchHistory(account_id, cb);
+            else self.__clientUpdateMatchHistory(account_id, cb);
         });
     };
     
@@ -494,42 +493,44 @@ Backend = (function() {
         });
     };
     
-    Backend.prototype.__clientUpdateMatchHistory = function(account_id, first_match_id, last_match_id) {
+    Backend.prototype.__clientUpdateMatchHistory = function(account_id, cb, first_match_id, last_match_id) {
         var self = this;
+        first_match_id = first_match_id || 0;
+        last_match_id = last_match_id || 0;
+        var success = function() {
+            logger.info("[DOTA] Finished fetching player match history from the client.");
+            self.fetched_matched = 0;
+            dotaUtils.removeTimeout();
+            cb(null);
+        };
         DotaUtils.getLatestMatchId(account_id, function(err, latest_match) {
             if(err) return logger.error(err);
-            first_match_id = first_match_id || 0;
-            last_match_id = last_match_id || 0;
-            if(first_match_id != latest_match) {
+            else if(first_match_id != latest_match) {
                 Dota2.getPlayerMatchHistory(account_id, last_match_id, function (err, data) {
-                    if (err) return logger.error(err);
+                    if (err) return cb(err);
                     self.__clientSaveMatches(data.matches, account_id);
                     self.fetched_matched += 13;
                     if (self.fetched_matched < 100 && data.matches.length == 13) {
                         var matches = data.matches;
-                        self.__clientUpdateMatchHistory(account_id, Number(matches[0].matchId), Number(matches[12].matchId));
+                        self.__clientUpdateMatchHistory(account_id, cb, Number(matches[0].matchId), Number(matches[12].matchId));
                     } else {
-                        logger.info("[DOTA] Finished fetching player match history from the client.");
-                        self.fetched_matched = 0;
-                        dotaUtils.removeTimeout();
+                        success();
                     }
                 });
             } else {
-                logger.info("[DOTA] Finished fetching player match history from the client.");
-                self.fetched_matched = 0;
-                dotaUtils.removeTimeout();
+                success();
             }
         });
     };
     
-    Backend.prototype.__clientScrapeFullMatchHistory = function(account_id, match_id) {
+    Backend.prototype.__clientScrapeFullMatchHistory = function(account_id, cb, match_id) {
         var self = this;
         match_id = match_id || 0;
         Dota2.getPlayerMatchHistory(account_id, match_id, function(err, data) {
-            if(err) return logger.error(err);
+            if(err) return cb(err);
             self.__clientSaveMatches(data.matches, account_id);
             if(data.matches.length == 13) {
-                self.__clientScrapeFullMatchHistory(account_id, Number(data.matches[12].matchId));
+                self.__clientScrapeFullMatchHistory(account_id, cb, Number(data.matches[12].matchId));
             } else {
                 logger.info("[DOTA] Finished fetching full player match history from the client.");
                 db.players.update({
@@ -540,6 +541,7 @@ Backend = (function() {
                     }
                 });
                 dotaUtils.removeTimeout();
+                cb(null);
             }
         });
     };
@@ -560,7 +562,7 @@ Backend = (function() {
         });
     };
     
-    Backend.prototype.__clientScrapeMMR = function(last_match_id) {
+    Backend.prototype.clientScrapeMMR = function(cb, last_match_id) {
         var self = this;
         last_match_id = last_match_id || 0;
         logger.info('[DOTA] Scraping MMR history');
@@ -569,7 +571,7 @@ Backend = (function() {
             var account_id = Dota2.AccountID;
             self.cont = true;
             Dota2.getPlayerMatchHistory(account_id, last_match_id, function (err, data) {
-                if (err) return logger.error('[DOTA] Unable to fetch player match history for ' + account_id);
+                if (err) return cb('[DOTA] Unable to fetch player match history for ' + account_id);
                 var matches = data.matches;
                 self.__clientSaveMatches(matches, account_id);
                 var cont = matches.every(function (match) {
@@ -584,7 +586,7 @@ Backend = (function() {
                             query.$set["solo_MMR." + match_id] = old_MMR + match.rankChange;
                         }
                         DotaUtils.checkIfMatchInMMRData(account_id, match_id, solo, function(err, res) {
-                            if(err) return logger.error('[BACKEND] Could not determine if MMR data is preset for match');
+                            if(err) return cb('[BACKEND] Could not determine if MMR data is preset for match');
                             else if(res) {
                                 self.cont = false;
                                 return;
@@ -596,10 +598,11 @@ Backend = (function() {
                     }
                     return self.cont;
                 });
-                if(cont && matches.length == 13) self.__clientScrapeMMR(Number(matches[12].matchId));
+                if(cont && matches.length == 13) self.clientScrapeMMR(cb, Number(matches[12].matchId));
                 else {
                     self.cont = false;
                     logger.info('[DOTA] Finished scraping MMR history from the client.');
+                    cb(null);
                 }
                 dotaUtils.removeTimeout();
             });

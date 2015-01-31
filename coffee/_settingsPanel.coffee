@@ -43,6 +43,7 @@ class SettingsPanel
             myProfile.show()
         )
       else
+#        TODO: uncheck this automatically when steam account info is changed
         Settings.set('steam-account-id', '')
         DotaUtils.assureSteamConnection(->
           db.players.remove({account_id: Dota2.AccountID}, {}, (err) ->
