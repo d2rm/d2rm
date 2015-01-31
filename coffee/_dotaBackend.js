@@ -34,7 +34,7 @@ Backend = (function() {
                     async.mapSeries(docs, function (player, cb2) {
                         var account_id = player.account_id;
                         var player_url = self.remote + "/players/" + account_id + "/matches";
-                        self.checkAPIavailability(account_id, function(available) {
+                        self.checkAPIavailability(account_id, function(available) { // TODO: remove the dotabuff code
                             if(available) {
                                 logger.info('[BACKEND] Fetching full match history for ' + account_id + ' through dotabuff.');
                                 self.getMatchPage(player_url, function (err) {

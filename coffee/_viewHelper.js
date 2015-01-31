@@ -159,7 +159,7 @@ ViewHelper = (function() {
             row[12] = match.players[match.slot].xp_per_min;
             row[13] = match.players[match.slot].hero_damage;
             row[14] = match.players[match.slot].tower_damage;
-            row[15] = constants.parse_status[match.parse_status];
+            row[15] = constants.parse_status[match.parse_status] || "Unavailable";
             row[16] = available;
             table.push(row);
         }
