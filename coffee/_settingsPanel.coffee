@@ -43,7 +43,6 @@ class SettingsPanel
             myProfile.show()
         )
       else
-#        TODO: uncheck this automatically when steam account info is changed
         Settings.set('steam-account-id', '')
         DotaUtils.assureSteamConnection(->
           db.players.remove({account_id: Dota2.AccountID}, {}, (err) ->
@@ -161,6 +160,10 @@ class SettingsPanel
     @steamFolderInput.prop('placeholder', steam_folder)
 
   saveTextboxes: ->
+    if(Settings.get(@steamUser.prop('name')) != @steamUser.val() or
+        Settings.get(@steamPassword.prop('name')) != @steamPassword.val())
+      if(@trackSteamUser.prop('checked'))
+        @trackSteamUser.click()
     Settings.set(@APIKey.prop('name'), @APIKey.val())
     Settings.set(@steamUser.prop('name'), @steamUser.val())
     Settings.set(@steamPassword.prop('name'), @steamPassword.val())
