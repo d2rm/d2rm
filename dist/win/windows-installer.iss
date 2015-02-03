@@ -1,6 +1,6 @@
 ; Installer Variables
 #define AppName "DOTA 2 Replay Manager"
-#define AppVersion "0.2.0"
+#define AppVersion "0.2.1"
 #define AppPublisher "Pavel Yarmak"
 #define AppURL "https://github.com/pyarmak/DOTA-2-Replay-Manager-Public"
 #define AppExeName "run.bat"
