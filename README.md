@@ -11,7 +11,7 @@ It requires no sign up, displays no ads and is 100% safe.
 - [Linux 64](https://github.com/d2rm/d2rm/releases/download/0.2.0/D2RM-linux64.tar.gz?raw=true)
 - Mac OSX binaries are not available because I don't have access to a mac in order to rebuild some native node modules.
 
-## How does it works?
+## How does it work?
 D2RM is a program which is designed to be your own personal dotabuff replacement. 
 That's right, you no longer have to share your data with 3rd party entities to access detailed statistics. Take control of your stats!
 You can track multiple players, the application will first try to fetch player data using the web API and then the client if it. It can even track your own MMR!
