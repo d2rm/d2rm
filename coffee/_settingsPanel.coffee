@@ -141,11 +141,16 @@ class SettingsPanel
     @checkboxSettings.each((index, checkbox)->
       settingsKey = $(checkbox).prop('name')
       $(checkbox).prop('checked', Settings.get(settingsKey) is "true")
+      if(!Settings.get('steam-user') or !Settings.get('steam-password'))
+        $(checkbox).prop('disabled', true)
+      else
+        $(checkbox).prop('disabled', false)
     )
     if(Settings.get('steam-account-id'))
       @trackSteamUser.prop('checked', true)
     else
       @trackSteamUser.prop('checked', false)
+      
 
   initTextboxes: ->
     @APIKey.val(Settings.get(@APIKey.prop('name')))

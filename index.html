@@ -165,13 +165,14 @@
                         <td><label for="steam-user">Steam Username</label></td>
                         <td>
                             <input type="text" class="form-control" id="steam-user" placeholder="Steam username..." name="steam-user"
-                                   title='This does not have to be your main account. A steam account is needed in order to fetch the replay URL from the DOTA 2 client.'>
+                                   title='This does not have to be your main account (however this is the only account we may fetch MMR history for). A steam account is needed in order to fetch information from the DOTA 2 client (e.g. replay URL).'>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="steam-password">Steam Password</label></td>
                         <td><input type="password" class="form-control" id="steam-password" placeholder="Steam password..." name="steam-password"></td>
                     </tr>
+                    <tr><td colspan="2"><h4>Requires Steam Credentials</h4><hr></td></tr>
                     <tr><td colspan="2" style="padding-top: 0px;">
                         <table>
                             <colgroup width="160"></colgroup>
@@ -190,9 +191,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label for="save-all-replays">Parse All Replays</label></td>
+                                    <td><label for="save-all-matches">Scrape Full History</label></td>
                                     <td>
-                                        <input id="save-all-replays" type="checkbox" class="checkbox-settings" name="save-all-replays" title="Automatically download and parse all replays when synchronizing data.">
+                                        <input id="save-all-matches" type="checkbox" class="checkbox-settings" name="save-all-matches" title="Scrape the full match history for tracked players as opposed to the latest 100 matches.">
                                     </td>
                                     <td><label for="delete-replays">Delete Parsed Replays</label></td>
                                     <td>
@@ -200,9 +201,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label for="save-all-matches">Scrape Full History</label></td>
+                                    <td><label for="save-all-replays">Parse All Replays</label></td>
                                     <td>
-                                        <input id="save-all-matches" type="checkbox" class="checkbox-settings" name="save-all-matches" title="Scrape the full match history for tracked players as opposed to the latest 100 matches.">
+                                        <input id="save-all-replays" type="checkbox" class="checkbox-settings" name="save-all-replays" title="Automatically download and parse all replays when synchronizing data.">
                                     </td>
                                     <td></td>
                                     <td></td>
@@ -216,6 +217,7 @@
                             <!--<input id="enable-notifications" type="checkbox" class="checkbox-settings" name="enable-notification">-->
                         <!--</td>-->
                     <!--</tr>-->
+                    <tr><td colspan="2"><hr></td></tr>
                     <tr>
                         <td><label for="userID">Users to Track</label></td>
                         <td>
