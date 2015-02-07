@@ -11,7 +11,9 @@ Backend = (function() {
         this.ensureFolderExists(this.asset_path, function(err) {
             if(err) return logger.error("[CONSTANTS] " + err);
         });
-        this.q = async.queue(ReplayParser.parseReplay, 1);
+        this.q = async.queue(ReplayParser.parseReplay, true, function(err) {
+            if(err) return logger.error("[BACKEND] Could not download/parse the requested replay");
+        });
         this.q.drain = function() {
             alertify.success("Finished parsing replays");
         };
@@ -523,6 +525,7 @@ Backend = (function() {
             else if(first_match_id >= latest_match) {
                 Dota2.getPlayerMatchHistory(account_id, last_match_id, function (err, data) {
                     if (err) return cb(err);
+                    if (!data.matches) return success();
                     self.__clientSaveMatches(data.matches, account_id);
                     self.fetched_matched += 13;
                     if (self.fetched_matched < 100 && data.matches.length == 13) {
@@ -543,6 +546,7 @@ Backend = (function() {
         match_id = match_id || 0;
         Dota2.getPlayerMatchHistory(account_id, match_id, function(err, data) {
             if(err) return cb(err);
+            if(!data.matches) return cb(null);
             self.__clientSaveMatches(data.matches, account_id);
             if(data.matches.length == 13) {
                 self.__clientScrapeFullMatchHistory(account_id, cb, Number(data.matches[12].matchId));
@@ -588,6 +592,10 @@ Backend = (function() {
             Dota2.getPlayerMatchHistory(account_id, last_match_id, function (err, data) {
                 if (err) return cb('[DOTA] Unable to fetch player match history for ' + account_id);
                 var matches = data.matches;
+                if(!matches) {
+                    logger.info('[DOTA] Finished scraping MMR history from the client.');
+                    return cb(null);
+                }
                 self.__clientSaveMatches(matches, account_id);
                 var cont = matches.every(function (match) {
                     var old_MMR = match.previousRank;
