@@ -88,7 +88,7 @@ class Matchlist
           row.duration = moment().startOf("day").seconds(match.duration).format("H:mm:ss")
           row.result = (if match.radiant_win then "Radiant Victory" else "Dire Victory")
           row.played = {"display": moment.unix(match.start_time + match.duration).fromNow(), "timestamp": match.start_time + match.duration}
-          row.status = constants.parse_status[match.parse_status]
+          row.status = constants.parse_status[match.parse_status] or "Unavailable"
           row.saved = available
           data.push(row)
         makeView(route,

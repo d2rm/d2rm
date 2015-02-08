@@ -255,7 +255,7 @@ class SettingsPanel
     
   adjustParseStatus: ->
     if(Settings.get('save-all-replays') is "true")
-      data = {toFind: 3, toUpdate: 0}
+      data = {toFind: 3, toSet: 0}
     else
       data = {toFind: 0, toSet: 3}
     db.matches.update({

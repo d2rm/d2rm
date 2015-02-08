@@ -11,9 +11,7 @@ Backend = (function() {
         this.ensureFolderExists(this.asset_path, function(err) {
             if(err) return logger.error("[CONSTANTS] " + err);
         });
-        this.q = async.queue(ReplayParser.parseReplay, true, function(err) {
-            if(err) return logger.error("[BACKEND] Could not download/parse the requested replay");
-        });
+        this.q = async.queue(this.queueParse, 1);
         this.q.drain = function() {
             alertify.success("Finished parsing replays");
         };
@@ -183,13 +181,17 @@ Backend = (function() {
                 data: data,
                 url: url
             };
-            self.q.push(payload, false, function(err) {
+            self.q.push(payload, function(err) {
                 if(err) {
                     alertify.error("Problem parsing the match. Details saved to dota.log");
                     logger.error("[PARSER] Error: " + err);
                 }
             });
         }
+    };
+    
+    Backend.prototype.queueParse = function (payload, cb) {
+        ReplayParser.parseReplay(payload, false, cb);
     };
 
     Backend.prototype.apiRequest = function (data, cb) {
