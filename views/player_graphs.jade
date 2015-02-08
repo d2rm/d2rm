@@ -4,8 +4,9 @@ block playercontent
     if(player.account_id == Number(Settings.get('steam-account-id'))) {
       charts.generatePlayerMMRChart(function (err) {
         if (err) return console.log(err);
-        $('#chart-mmr-container').show()
-        $('#soon').hide()
+        $('.c3-tooltip-container').addClass('game-tooltip-container');
+        $('#chart-mmr-container').show();
+        $('#soon').hide();
       });
     }
   #chart-mmr-container.chart-container(style="display: none;")

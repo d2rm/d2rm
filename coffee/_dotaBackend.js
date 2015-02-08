@@ -181,10 +181,10 @@ Backend = (function() {
                 data: data,
                 url: url
             };
-            self.q.push(payload, function(err) {
+            self.q.push(payload, function(err, match_id) {
                 if(err) {
-                    alertify.error("Problem parsing the match. Details saved to dota.log");
-                    logger.error("[PARSER] Error: " + err);
+                    logger.error("[PARSER] Error: " + JSON.stringify(err));
+                    return alertify.error("Problem parsing match " + match_id + ". Details saved to dota.log").dismissOthers();
                 }
             });
         }

@@ -48,8 +48,12 @@ ViewHelper = (function() {
                     url: null
                 };
                 ReplayParser.parseReplay(payload, true, function(err) {
-                    if(err) return alertify.error("There was a problem fetching the replay.");
-                    alertify.success("Replay downloaded and parsed.");
+                    if(err) {
+                        logger.error("[PARSER] Error: " + JSON.stringify(err));
+                        return alertify.error("There was a problem fetching the replay for match " + match_id +
+                            ". Details saved to dota.log");
+                    }
+                    alertify.success("Replay for match " + match_id + " downloaded and parsed.");
                     self.clearContent();
                     self.showMatch(match_id);
                 });

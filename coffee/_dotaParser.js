@@ -10,16 +10,16 @@ ReplayParser = (function() {
      * @param {function} cb
      */
     ReplayParser.parseReplay = function(payload, overrideDelete, cb) {
+        var match_id = payload.data.match_id;
         if(!Settings.get('replay-folder') || !Settings.get('steam-folder')) {
             alertify.error("Please check your folder settings.");
-            return cb("Error");
+            return cb(null, match_id);
         }
         if(!Settings.get('steam-user') || !Settings.get('steam-password')) {
             alertify.error("Please provide a steam username and password.");
-            return cb("Error");
+            return cb(null, match_id);
         }
         if(!fs.existsSync(Settings.get('replay-folder'))) fs.mkdir(Settings.get('replay-folder'));
-        var match_id = payload.data.match_id;
         logger.info("[PARSER] match %s", match_id);
         ReplayParser.download(payload, function(err, fileName) {
             if(err) {
@@ -33,10 +33,10 @@ ReplayParser = (function() {
                             parse_status: 1
                         }
                     });
-                    return cb(null); //Mark as done
+                    return cb(null, match_id); //Mark as done
                 }
                 logger.error("[PARSER] Error for match %s: %s", match_id, err);
-                return cb(err);
+                return cb(err, match_id);
             }
             logger.info("[PARSER] running parse on %s", fileName);
             var execPath = path.dirname( process.execPath );
@@ -60,7 +60,7 @@ ReplayParser = (function() {
                         fs.unlink(fileName);
                     }
                 }
-                return cb(err);
+                return cb(err, match_id);
             });
         });
     };
