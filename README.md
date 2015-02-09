@@ -31,3 +31,8 @@ Do send me a message if you plan on working on this application as perhaps we co
 ## Contribute
 - Submit a pull request
 - Email me at dota2replaymanager (at) gmail.com
+
+## Acknowledgements
+* Parser powered by [clarity](https://github.com/skadistats/clarity).
+* Initial idea and code inspired by [YASP](https://github.com/yasp-dota/yasp).
+* Application GUI shell inspired by [Atraci](https://github.com/Atraci/Atraci).
