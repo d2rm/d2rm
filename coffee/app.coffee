@@ -97,7 +97,7 @@ window.referrer = {}
 
 # Get window object (!= $(window))
 win = gui.Window.get()
-#win.showDevTools()
+win.showDevTools()
 
 # Debug flag
 isDebug = false

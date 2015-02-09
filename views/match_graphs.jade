@@ -16,24 +16,25 @@ append content
       $('#diff').click();
     });
   .row
-      if match.parsed_data
-        .btn-group(role='group')
-          br
-          button#diff.btn.btn-default(type='button') Advantage
-          button#gold.btn.btn-default(type='button') Gold
-          button#xp.btn.btn-default(type='button') XP
-          button#lh.btn.btn-default(type='button') LH
-        #chart-diff-container.col-md-12.chart-container
-          h3 Radiant Advantage
-          #chart-diff
-        #chart-gold-container.col-md-12.chart-container
-          h3 Gold
-          #chart-gold
-        #chart-xp-container.col-md-12.chart-container
-          h3 XP
-          #chart-xp
-        #chart-lh-container.col-md-12.chart-container
-          h3 LH
-          #chart-lh
-      else
+    if match.parsed_data
+      .col-md-12.btn-group(role='group')
+        br
+        button#diff.btn.btn-default(type='button') Advantage
+        button#gold.btn.btn-default(type='button') Gold
+        button#xp.btn.btn-default(type='button') XP
+        button#lh.btn.btn-default(type='button') LH
+      #chart-diff-container.col-md-12.chart-container
+        h3 Radiant Advantage
+        #chart-diff
+      #chart-gold-container.col-md-12.chart-container
+        h3 Gold
+        #chart-gold
+      #chart-xp-container.col-md-12.chart-container
+        h3 XP
+        #chart-xp
+      #chart-lh-container.col-md-12.chart-container
+        h3 LH
+        #chart-lh
+    else
+      .col-md-12
         h1 This match has no parsed data!

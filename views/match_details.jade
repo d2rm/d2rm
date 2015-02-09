@@ -1,9 +1,9 @@
 extend match_base
 
 append content
-  .row
-    .col-md-12
-      if match.parsed_data
+  if match.parsed_data
+    .row
+      .col-md-12
         h2 Details
         table.table.table-hover.table-responsive.summable
           thead
@@ -136,5 +136,7 @@ append content
                               div.format-seconds=entry.time
                           else
                             =key
-      else
+  else
+    .row
+      .col-md-12
         h1 This match has no parsed data!
