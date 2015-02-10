@@ -10,6 +10,7 @@ upd = new updater(pkg)
 # load just a few things
 async = require("async")
 request = require("request")
+progress = require('request-progress')
 BigNumber = require('big-number').n
 retry = require('retry')
 cheerio = require('cheerio')

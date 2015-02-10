@@ -36,7 +36,7 @@ ViewHelper = (function() {
         $('#download').click(function() {
             alertify.message("Downloading replay...");
             $(this).css('display', 'none');
-            $('#downloading').css('display', 'block');
+            $('.progress').css('display', 'block');
             db.matches.findOne({match_id: Number(match_id)}, function(err, match) {
                 if(err) return alertify.error("There was a problem fetching the replay.");
                 var data = {

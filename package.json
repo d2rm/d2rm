@@ -31,6 +31,7 @@
     "nedb": "~0.11.1",
     "node-uuid": "~1.4.1",
     "request": "~2.40.0",
+    "request-progress": "~0.3.1",
     "retry": "~0.6.0",
     "seek-bzip": "~1.0.3",
     "universal-analytics": "~0.3.4",

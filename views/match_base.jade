@@ -6,7 +6,10 @@ block content
       h1(class='match_info' id="#{match.match_id}" style="float: left; margin-top: auto;")
         i(class="Btn fa fa-arrow-circle-o-left" title="Back" id="back")
         |  Match #{match.match_id}
-      img(id="downloading" src="images/loading-spokes.svg" alt="Loading icon")
+      img(id="parsing" src="images/loading-spokes.svg" alt="Loading icon")
+      .progress
+        .progress-bar.progress-bar-striped.active(role='progressbar', aria-valuenow='0', aria-valuemin='0', aria-valuemax='100')
+          | 0%
       if available
         button(type="button" class="btn btn-danger" id="delete" style="float: right; margin-top: 5px;")
           | Delete

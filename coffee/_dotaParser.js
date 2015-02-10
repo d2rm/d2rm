@@ -6,10 +6,10 @@ ReplayParser = (function() {
     /**
      * Parses a replay for a match
      * @param {object} payload
-     * @param {boolean} overrideDelete true prevents deletion of replay file after parsing
+     * @param {boolean} manual true prevents deletion of replay file after parsing
      * @param {function} cb
      */
-    ReplayParser.parseReplay = function(payload, overrideDelete, cb) {
+    ReplayParser.parseReplay = function(payload, manual, cb) {
         var match_id = payload.data.match_id;
         if(!Settings.get('replay-folder') || !Settings.get('steam-folder')) {
             alertify.error("Please check your folder settings.");
@@ -56,13 +56,13 @@ ReplayParser = (function() {
                             parse_status: 2
                         }
                     });
-                    if(Settings.get('delete-replays') == 'true' && !overrideDelete) {
+                    if(Settings.get('delete-replays') == 'true' && !manual) {
                         fs.unlink(fileName);
                     }
                 }
                 return cb(err, match_id);
             });
-        });
+        }, manual);
     };
 
     /**
@@ -70,7 +70,7 @@ ReplayParser = (function() {
      * @param {object} payload
      * @param {function} cb
      */
-    ReplayParser.download = function(payload, cb) {
+    ReplayParser.download = function(payload, cb, manual) {
         var match_id = payload.data.match_id;
         var fileName = Settings.get('replay-folder') + path.sep + match_id + ".dem";
         if(fs.existsSync(fileName)) {
@@ -80,21 +80,34 @@ ReplayParser = (function() {
             ReplayParser.getReplayUrl(payload, function(err, url) {
                 if(err) return cb(err);
                 logger.info("[PARSER] downloading from %s", url);
-                request({
+                var req = request({
                     url: url,
                     encoding: null
                 }, function(err, response, body) {
                     if(err || response.statusCode !== 200) {
+                        if(manual) {
+                            $('.progress').css('display', 'none');
+                        }
                         logger.error("[PARSER] failed to download from %s", url);
                         return cb("DOWNLOAD TIMEOUT");
                     } else {
+                        if(manual) {
+                            $('.progress-bar').css('width', '100%');
+                            $('.progress-bar').prop('aria-valuenow', '100');
+                            $('.progress-bar').text('100%');
+                        }
                         try {
                             var decomp = Bunzip.decode(body);
                             fs.writeFile(fileName, decomp, function(err) {
                                 if(err) {
                                     return cb(err);
                                 }
-                                logger.info("[PARSER] downloaded/decompressed replay for match %s", match_id);
+                                if(manual) {
+                                    $('.progress').css('display', 'none');
+                                    $('#parsing').css('display', 'block');
+                                }
+                                logger.info("[PARSER] downloaded & decompressed replay for match %s", match_id);
+                                alertify.success('Finished downloading & decompressing replay for match ' + match_id + '. Parsing...');
                                 var archiveName = match_id + ".dem.bz2";
                                 fs.unlink(archiveName);
                                 return cb(null, fileName);
@@ -104,6 +117,16 @@ ReplayParser = (function() {
                         }
                     }
                 });
+                if(manual) {
+                    progress(req).on('progress', function (state) {
+                        $('.progress-bar').css('width', state.percent + '%');
+                        $('.progress-bar').prop('aria-valuenow', state.percent);
+                        $('.progress-bar').text(state.percent + '%');
+                    }).on('error', function (err) {
+                        logger.error('[PARSER] Could not fetch replay');
+                        logger.error(err);
+                    });
+                }
             });
         }
     };
