@@ -8,6 +8,12 @@ ViewUtils = (function() {
         if(input === 0) return "-";
         return(Math.abs(input) < 1000 ? ~~(input) : numeral(input).format('0.0a'));
     };
+    
+    ViewUtils.setProgress = function(percent) {
+        $('.progress-bar').css('width', percent + '%');
+        $('.progress-bar').prop('aria-valuenow', percent);
+        $('.progress-bar').text(percent + '%');
+    };
 
     ViewUtils.pad = function(n, width, z) {
         z = z || '0';

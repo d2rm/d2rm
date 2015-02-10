@@ -239,6 +239,7 @@ $ ->
 
   # Check for version update
   # Linux and Windows only so far. Mac coming up soon
+  # TODO: consider adding progress bar to update download
   if getOperatingSystem() is "windows" or "linux"
     upd.checkNewVersion (error, manifest) ->
       if error is null

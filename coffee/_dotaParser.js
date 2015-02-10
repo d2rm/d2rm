@@ -92,9 +92,7 @@ ReplayParser = (function() {
                         return cb("DOWNLOAD TIMEOUT");
                     } else {
                         if(manual) {
-                            $('.progress-bar').css('width', '100%');
-                            $('.progress-bar').prop('aria-valuenow', '100');
-                            $('.progress-bar').text('100%');
+                            ViewUtils.setProgress(100);
                         }
                         try {
                             var decomp = Bunzip.decode(body);
@@ -107,7 +105,7 @@ ReplayParser = (function() {
                                     $('#parsing').css('display', 'block');
                                 }
                                 logger.info("[PARSER] downloaded & decompressed replay for match %s", match_id);
-                                alertify.success('Finished downloading & decompressing replay for match ' + match_id + '. Parsing...');
+                                alertify.message('Finished downloading & decompressing replay for match ' + match_id + '. Parsing...');
                                 var archiveName = match_id + ".dem.bz2";
                                 fs.unlink(archiveName);
                                 return cb(null, fileName);
@@ -119,9 +117,7 @@ ReplayParser = (function() {
                 });
                 if(manual) {
                     progress(req).on('progress', function (state) {
-                        $('.progress-bar').css('width', state.percent + '%');
-                        $('.progress-bar').prop('aria-valuenow', state.percent);
-                        $('.progress-bar').text(state.percent + '%');
+                        ViewUtils.setProgress(state.percent);
                     }).on('error', function (err) {
                         logger.error('[PARSER] Could not fetch replay');
                         logger.error(err);
