@@ -106,6 +106,59 @@ Name: "{commondesktop}\{#AppName}"; WorkingDir: "{app}"; Filename: "{app}\node-w
 Filename: "{app}\node-webkit\nw.exe"; Parameters: """{app}\app"""; Description: "{cm:LaunchProgram,{#StringChange(AppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent runminimized
 
 [Code]
+function InitializeSetup(): Boolean;
+var
+ ErrorCode: Integer;
+ JavaInstalled : Boolean;
+ Result1 : Boolean;
+ Versions: TArrayOfString;
+ I: Integer;
+begin
+ if RegGetSubkeyNames(HKLM, 'SOFTWARE\JavaSoft\Java Runtime Environment', Versions) then
+ begin
+  for I := 0 to GetArrayLength(Versions)-1 do
+   if JavaInstalled = true then
+   begin
+    //do nothing
+   end else
+   begin
+    if ( Versions[I][2]='.' ) and ( ( StrToInt(Versions[I][1]) > 1 ) or ( ( StrToInt(Versions[I][1]) = 1 ) and ( StrToInt(Versions[I][3]) >= 7 ) ) ) then
+    begin
+     JavaInstalled := true;
+    end else
+    begin
+     JavaInstalled := false;
+    end;
+   end;
+ end else
+ begin
+  JavaInstalled := false;
+ end;
+
+
+ //JavaInstalled := RegKeyExists(HKLM,'SOFTWARE\JavaSoft\Java Runtime Environment\1.9');
+ if JavaInstalled then
+ begin
+  Result := true;
+ end else
+    begin
+  Result1 := MsgBox('This tool requires Java Runtime Environment version 1.7 or newer to run. Please download and install the JRE and run this setup again. Do you want to download it now?',
+   mbConfirmation, MB_YESNO) = idYes;
+  if Result1 = false then
+  begin
+   Result:=false;
+  end else
+  begin
+   Result:=false;
+   ShellExec('open',
+    'http://www.java.com/getjava/',
+    '','',SW_SHOWNORMAL,ewNoWait,ErrorCode);
+  end;
+    end;
+end;
+
+
+end.
 /////////////////////////////////////////////////////////////////////
 function GetUninstallString(): String;
 var
