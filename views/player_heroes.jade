@@ -1,6 +1,8 @@
 extend player
 block playercontent
   script.
+    var constants = !{JSON.stringify(constants)}
+    var matches = !{JSON.stringify(matches)}
     var data = !{JSON.stringify(table)};
     $('.dataTable').dataTable({
       "data": data,
@@ -11,12 +13,18 @@ block playercontent
         {"sClass": "hero", "aTargets": [0]}
       ]
     });
+    heroPieGraph.init();
   h3 Heroes
-  table.table#heroes.dataTable
-   thead
-     tr
-       th Hero
-       th Games
-       th Wins
-       th Losses
-       th Winrate
+  .row
+    .col-lg-4
+      p.hero-pie-description Click center to zoom out. Click arcs to zoom in.
+      #hero_pie_container
+    .col-lg-8
+      table.table#heroes.dataTable
+       thead
+         tr
+           th Hero
+           th Games
+           th Wins
+           th Losses
+           th Winrate

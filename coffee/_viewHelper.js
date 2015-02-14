@@ -230,6 +230,7 @@ ViewHelper = (function() {
                             playerRadiant = DotaUtils.isRadiant(p);
                             matches[i].player_win = (playerRadiant == matches[i].radiant_win);
                             matches[i].slot = j;
+                            matches[i].player_info = p;
                             if(matches[i].player_win) player.win += 1;
                             else player.lose += 1;
                             player.games += 1;
@@ -299,6 +300,8 @@ ViewHelper = (function() {
                         else if(route == 'heroes') table = self.generatePlayerHeroesTableData(player, constants);
                         else if(route == 'teammates') table = self.generatePlayerTeammateTableData(player);
                         makeView(playerPages[route].template, {
+                            constants: constants,
+                            matches: matches,
                             route: route,
                             tabs: playerPages,
                             table: table,

@@ -307,12 +307,31 @@ Backend = (function() {
                 }
             }, function (err) {
                 var heroes = constants.heroes.result.heroes;
+                var hero_data = constants.hero_data.herodata;
                 heroes.forEach(function (hero) {
-                    var hero_name = hero.name.replace("npc_dota_hero_", "") + "_sb.png";
+                    var hero_name = hero.name.replace("npc_dota_hero_", "");
+                    var hero_image = hero_name + "_sb.png";
                     var hero_path = path.join(self.asset_path, 'heroes/');
-                    self.downloadAssets(hero_path, hero_name, "http://cdn.dota2.com/apps/dota2/images/heroes/" + hero_name);
-                    hero.img = "file://" + hero_path + hero_name;
+                    var hero_stat;
+                    switch(hero_data[hero_name].pa) {
+                        case "agi":
+                            hero_stat = "agility";
+                            break;
+                        case "int":
+                            hero_stat = "intelligence";
+                            break;
+                        case "str":
+                            hero_stat = "strength";
+                    }
+                    self.downloadAssets(hero_path, hero_image, "http://cdn.dota2.com/apps/dota2/images/heroes/" + hero_image);
+                    hero.img = "file://" + hero_path + hero_image;
+                    hero.stat = hero_stat;
+                    hero.dname = hero_data[hero_name].dname;
+                    hero.attribs = hero_data[hero_name].attribs;
+                    hero.dac = hero_data[hero_name].dac;
+                    hero.droles = hero_data[hero_name].droles;
                 });
+                delete constants.hero_data;
                 constants.heroes = DotaUtils.buildLookup(heroes);
                 constants.hero_names = {};
                 for (var i = 0; i < heroes.length; i++) {

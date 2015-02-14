@@ -3,6 +3,36 @@ var ViewUtils;
 ViewUtils = (function() {
     function ViewUtils() {}
 
+    function idToItemInfo(constants, id) {
+        var itemData = constants.item_ids;
+        if (id in itemData)
+            return constants.items[itemData[id]];
+        else
+            console.log("No item with id " + id);
+    }
+
+    ViewUtils.getItemInfoCopy = function(constants, id) {
+        var object =  idToItemInfo(constants, id);
+        return jQuery.extend(true, {}, object);
+    };
+
+    function idToHeroInfo(constants, id) {
+        var heroData = constants.heroes;
+        if (id in heroData)
+            return heroData[id];
+        else
+            console.log("No hero with id " + id);
+    }
+    
+    ViewUtils.getHeroInfo = function(constants, id) {
+        return idToHeroInfo(constants, id);
+    };
+    
+    ViewUtils.getHeroInfoCopy = function(constants, id) {
+        var object = idToHeroInfo(constants, id);
+        return jQuery.extend(true, {}, object);
+    };
+
     ViewUtils.format = function(input) {
         input = Number(input);
         if(input === 0) return "-";

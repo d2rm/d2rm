@@ -169,6 +169,7 @@ $ ->
   window.charts = new Charts
   window.viewHelper = new ViewHelper
   window.heatmap = new Heatmap
+  window.heroPieGraph = new HeroPieGraph
   
 #  backend.printDBInfo();
 

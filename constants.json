@@ -196,5 +196,6 @@
     "regions": "https://raw.githubusercontent.com/kronusme/dota2-api/master/data/regions.json",
     "items": "http://www.dota2.com/jsfeed/itemdata",
     "heroes": "https://api.steampowered.com/IEconDOTA2_570/GetHeroes/v0001/?language=en-us&key=",
+    "hero_data": "http://www.dota2.com/jsfeed/heropediadata?feeds=herodata",
     "abilities": "http://www.dota2.com/jsfeed/abilitydata"
 }
