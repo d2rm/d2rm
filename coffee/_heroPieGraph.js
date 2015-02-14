@@ -65,6 +65,7 @@ HeroPieGraph = (function() {
         for (i = 0; i < self.hero_flare.children.length; i++) {
             for (j = 0; j < self.hero_flare.children[i].children.length; j++) {
                 self.hero_flare.children[i].children[j].games_played = 0;
+                self.hero_flare.children[i].children[j].games_won = 0;
                 self.hero_flare.children[i].children[j].items = [];
                 //for (var k = 0; k < self.hero_flare.children[i].children[j].items.length; k++) {
                 //    self.hero_flare.children[i].children[j].items[k].number = 0;
@@ -83,6 +84,7 @@ HeroPieGraph = (function() {
             // find which element of that array holds this hero
             var hero_pos = cur.map(function (d) { return d.dname; }).indexOf(current_hero.dname);
             cur[hero_pos].games_played += 1;
+            if(d.player_win) cur[hero_pos].games_won += 1;
 
         });
 
@@ -382,7 +384,7 @@ HeroPieGraph = (function() {
                         item_text2 = (d.item_max[1][1] == 1) ? "time" : "times";
                         item_text3 = (d.item_max[2][1] == 1) ? "time" : "times";
 
-                        basic_tip = "<div id='tooltip_text'><strong>"+ name +"</strong>"+ "<br>" + d.value + number_text + "</br>" + "<br><strong>Most bought items: </strong><br>" + d.item_max[0][0] + ", " + d.item_max[0][1] + " " + item_text1 + "<br>" + d.item_max[1][0] + ", " + d.item_max[1][1] + " " + item_text2 + "<br>" + d.item_max[2][0] + ", " + d.item_max[2][1] + " " + item_text3 + "</br></div>";
+                        basic_tip = "<div id='tooltip_text'><strong>"+ name +"</strong>"+ "<br>" + d.value + number_text + " (winrate: " + (d.games_won/ d.games_played*100).toFixed(2) + "%)</br>" + "<br><strong>Most bought items: </strong><br>" + d.item_max[0][0] + ", " + d.item_max[0][1] + " " + item_text1 + "<br>" + d.item_max[1][0] + ", " + d.item_max[1][1] + " " + item_text2 + "<br>" + d.item_max[2][0] + ", " + d.item_max[2][1] + " " + item_text3 + "</br></div>";
                     }
                 }
                 var img_tip;
