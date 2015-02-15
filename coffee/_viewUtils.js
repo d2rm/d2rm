@@ -8,7 +8,7 @@ ViewUtils = (function() {
         if (id in itemData)
             return constants.items[itemData[id]];
         else
-            console.log("No item with id " + id);
+            logger.debug("No item with id " + id);
     }
 
     ViewUtils.getItemInfoCopy = function(constants, id) {
@@ -21,7 +21,7 @@ ViewUtils = (function() {
         if (id in heroData)
             return heroData[id];
         else
-            console.log("No hero with id " + id);
+            logger.debug("No hero with id " + id);
     }
     
     ViewUtils.getHeroInfo = function(constants, id) {
