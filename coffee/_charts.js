@@ -303,8 +303,8 @@ Charts = (function() {
                                     '</div>' +
                                     '<span style="font-size:12px;font-weight:bold;color:#f0a868;">MMR: ' + mmr + ' (' + old_mmr + ' ' + mmr_change + ') ' + '</span>' +
                                 '</div>' +
-                                '<span style="float: right">' +
-                                    '<img src="' + hero.img + '" title="' + hero.localized_name + '">' +
+                                '<span style="float: right; width: 67px; height: 39px;">' +
+                                    '<img style="width: inherit; height: inherit;" src="' + hero.img + '" title="' + hero.localized_name + '">' +
                                 '</span>';
                             }
                         },
