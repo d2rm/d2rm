@@ -310,7 +310,7 @@ Backend = (function() {
                 var hero_data = constants.hero_data.herodata;
                 heroes.forEach(function (hero) {
                     var hero_name = hero.name.replace("npc_dota_hero_", "");
-                    var hero_image = hero_name + "_sb.png";
+                    var hero_image = hero_name + "_full.png";
                     var hero_path = path.join(self.asset_path, 'heroes/');
                     var hero_stat;
                     switch(hero_data[hero_name].pa) {

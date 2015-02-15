@@ -1,32 +1,47 @@
 extend player
 block playercontent
-  h3 Activity
-  p
-    button.btn.btn-default#prev <
-    button.btn.btn-default#next >
-  div#cal-heatmap
-  h3 Matches
-  p#no-matches-notification(style="display: block;") No matches found for the selected day.
-  div#match-container(style="display: none;")
-    table.table#playerMatchesTable.dataTable
-      thead
-        tr
-          th Match ID
-          th Hero
-          th Result
-          th Game Mode
-          th Duration
-          th Played
-          th K
-          th D
-          th A
-          th LH
-          th DN
-          th GPM
-          th XPM
-          th HD
-          th TD
-          th Status
-          th Saved
+  #records_container.row
+    .col-sm-12
+      h3 Records
+      #record_content.row
+        #longest_match(data-value='Longest Match').col-sm-2
+        #most_kills(data-value='Most Kills').col-sm-2
+        #most_deaths(data-value='Most Deaths').col-sm-2
+        #most_last_hits(data-value='Most Last Hits').col-sm-2
+        #most_hero_damage(data-value='Most Hero Damage').col-sm-2
+        #most_tower_damage(data-value='Most Tower Damage').col-sm-2
+  #activity_container.row
+    .col-sm-12
+      h3 Activity
+      p
+        button.btn.btn-default#prev <
+        button.btn.btn-default#next >
+      div#cal-heatmap
+  #matches_container.row
+    .col-sm-12
+      h3 Matches
+      p#no-matches-notification(style="display: block;") No matches found for the selected day.
+      div#match-container(style="display: none;")
+        table.table#playerMatchesTable.dataTable
+          thead
+            tr
+              th Match ID
+              th Hero
+              th Result
+              th Game Mode
+              th Duration
+              th Played
+              th K
+              th D
+              th A
+              th LH
+              th DN
+              th GPM
+              th XPM
+              th HD
+              th TD
+              th Status
+              th Saved
   script.
+    Records.updateRecords();
     heatmap.createHeatmap(player.account_id, data);

@@ -1,8 +1,6 @@
 extend player
 block playercontent
   script.
-    var constants = !{JSON.stringify(constants)}
-    var matches = !{JSON.stringify(matches)}
     var data = !{JSON.stringify(table)};
     $('.dataTable').dataTable({
       "data": data,

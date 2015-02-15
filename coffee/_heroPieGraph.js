@@ -421,22 +421,6 @@ HeroPieGraph = (function() {
             .attrTween("d", heroPieArcTween)
             .style("fill", function(d) {
                 return hero_pie_color((d.children ? d : d.parent).name); });
-
-        //d3.select(self.frameElement).style("height", "200px");
-
-        //self.hero_pie_graph.selectAll("text").remove();
-        //
-        //self.hero_pie_graph.append("text")
-        //    .attr("text-anchor", "middle")
-        //    .attr("y", -self.bb_hero_pie.h/2 - 30)
-        //    .text("Heroes Played");
-        //
-        //self.hero_pie_graph.append("text")
-        //    .attr("text-anchor", "middle")
-        //    .attr("y", -self.bb_hero_pie.h/2 - 10)
-        //    .style("font-size", "12px")
-        //    .text("Click center to zoom out. Click arcs to zoom in.");
-
     };
     
     return HeroPieGraph;
