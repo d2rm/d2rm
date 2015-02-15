@@ -210,8 +210,7 @@ ViewHelper = (function() {
         if(!route) route = 'index';
         db.players.findOne({account_id: Number(account_id)}, function (err, player) {
             if (err) return logger.error(err);
-            else if(!player) return makeView('404', {message: "No information about this player found in the database."})
-                .appendTo(self.contentWrap);
+            else if(!player) return makeView('404', {message: "No information about this player found in the database."});
             DotaUtils.getMatches(player.account_id, function(err, matches) {
                 var account_id = player.account_id;
                 var counts = {};
@@ -307,7 +306,7 @@ ViewHelper = (function() {
                             table: table,
                             data: data || {},
                             player: player
-                        }).appendTo(self.contentWrap);
+                        });
                     });
                 });
             });
@@ -368,7 +367,7 @@ ViewHelper = (function() {
                                 moment: moment,
                                 data: data,
                                 available: available
-                            }).appendTo(self.contentWrap);
+                            });
                         }
                     } else {
                         makeView(matchPages[route].template, {
@@ -378,7 +377,7 @@ ViewHelper = (function() {
                             constants: constants[0],
                             moment: moment,
                             available: available
-                        }).appendTo(self.contentWrap);
+                        });
                     }
                 });
             });

@@ -64,7 +64,7 @@ class Matchlist
       .scrollTop()
 
     if players and $('#SideBar .active').hasClass('tracked-players')
-      makeView(route, {players: players}).appendTo($('#ContentWrapper'))
+      makeView(route, {players: players})
     else if matches
       for x of matches
         matches[x].id = x
@@ -95,10 +95,10 @@ class Matchlist
           {
             moment: moment,
             data: data
-          }).appendTo($('#ContentWrapper'))
+          })
       )
     else
-      makeView('404', {message: "Unable to process matches"}).appendTo(@_contentWrapper)
+      makeView('404', {message: "Unable to process matches"})
     
   _createSeparatorMenuItem: () ->
     return new gui.MenuItem(type: 'separator')

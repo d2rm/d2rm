@@ -92,6 +92,7 @@ class SettingsPanel
       .set('message', "Are you sure you want to clear the database?")
       .set('labels', {ok: 'Yes', cancel: 'No'})
       .set('onok', ->
+        resetCache()
         Playlists.clear ->
           History.clear ->
             DotaUtils.clearDota((err)->

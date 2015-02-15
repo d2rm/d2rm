@@ -45,13 +45,7 @@ transports.push(FileLog)
 transports.push(new(winston.transports.Console))
 logger = new(winston.Logger)({transports: transports, prettyPrint: true})
 
-# setup view helper function
-makeView = (name, data)->
-  if(!data)
-    data = {}
-  compiled = jade.compileFile('views/' + name + '.jade')
-  $(compiled(data))
-
+# setup view helper functions
 matchPages = {
   index: {
     template: "match_index",
@@ -93,6 +87,46 @@ playerPages = {
     name: "Graphs"
   }
 }
+view_cache = {}
+cached_pages = {}
+resetCache = ->
+  createEmptyCacheObject = (obj) ->
+    keys = Object.keys(obj)
+    keys.forEach((k) ->
+      name = obj[k].template
+      cached_pages[name] = {}
+    )
+  createEmptyCacheObject(matchPages)
+  createEmptyCacheObject(playerPages)
+resetCache()
+makeView = (name, data)->
+  processView = (name, data, id)->
+    if(view_cache[name])
+      compiled = view_cache[name]
+    else
+      compiled = jade.compileFile('views/' + name + '.jade')
+      view_cache[name] = compiled
+    res = compiled(data)
+    if(id)
+      cached_pages[name][id] = res
+    else
+      cached_pages[name] = res
+    $('#ContentWrapper').html(res)
+  if(!data)
+    data = {}
+  else if(data.match)
+    id = data.match.match_id
+  else if(data.player)
+    id = data.player.account_id
+  if(cached_pages[name] and !jQuery.isEmptyObject(cached_pages[name]))
+    if(id)
+      if(cached_pages[name][id])
+        return $('#ContentWrapper').html(cached_pages[name][id])
+      else
+        return processView(name, data, id)
+    return $('#ContentWrapper').html(cached_pages[name])
+  processView(name, data, id)
+  
 
 window.referrer = {}
 
