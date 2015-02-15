@@ -78,14 +78,19 @@ HeroPieGraph = (function() {
             var current_hero = ViewUtils.getHeroInfo(constants, d.player_info.hero_id);
 
             // find which child array holds the heroes for this stat
-            var children_pos = self.hero_flare.children.map(function (d) { return d.name; }).indexOf(current_hero.stat);
-            var cur = self.hero_flare.children[children_pos].children;
+            if(current_hero) {
+                var children_pos = self.hero_flare.children.map(function (d) {
+                    return d.name;
+                }).indexOf(current_hero.stat);
+                var cur = self.hero_flare.children[children_pos].children;
 
-            // find which element of that array holds this hero
-            var hero_pos = cur.map(function (d) { return d.dname; }).indexOf(current_hero.dname);
-            cur[hero_pos].games_played += 1;
-            if(d.player_win) cur[hero_pos].games_won += 1;
-
+                // find which element of that array holds this hero
+                var hero_pos = cur.map(function (d) {
+                    return d.dname;
+                }).indexOf(current_hero.dname);
+                cur[hero_pos].games_played += 1;
+                if (d.player_win) cur[hero_pos].games_won += 1;
+            }
         });
 
         //deep copy attempts
