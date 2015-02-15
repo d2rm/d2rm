@@ -1,3 +1,4 @@
+/*jshint sub:true*/
 var Records;
 
 Records = (function() {
@@ -27,6 +28,7 @@ Records = (function() {
     };
     
     Records.updateRecords = function (){
+        var callback = function(){};
         var current_records = {
             "longest_match":
             {
@@ -114,7 +116,7 @@ Records = (function() {
                     .classed("dullness",false)
                     .classed("brightnessfilter",false)
                     .style("background-image", "none")
-                    .on("click",function(){});
+                    .on("click",callback);
             }
         
         }
