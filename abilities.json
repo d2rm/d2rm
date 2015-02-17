@@ -2246,5 +2246,21 @@
 	{
 		"name": "treant_eyes_in_the_forest",
 		"id": "5649"
+	},
+	{
+	  "name": "winter_wyvern_arctic_burn",
+	  "id": "5651"
+	},
+	{
+	  "name": "winter_wyvern_splinter_blast",
+	  "id": "5652"
+	},
+  	{
+	  "name": "winter_wyvern_cold_embrace",
+	  "id": "5653"
+	},
+  	{
+	  "name": "winter_wyvern_winters_curse",
+	  "id": "5654"
 	}
 ]
