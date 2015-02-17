@@ -43,9 +43,10 @@ ReplayParser = (function() {
             var parserPath = path.join(execPath, '/parser/dist');
             var parser_file;
             if(getOperatingSystem() == "windows") parser_file = 'parser.exe';
-            else if(getOperatingSystem() == "linux") parser_file = 'java -jar parser/stats-0.1.0.jar';
-            exec(parser_file + ' "' + fileName + '"', {cwd: parserPath, maxBuffer: 1024 * 500}, function (err, stdout) {
+            else if(getOperatingSystem() == "linux") parser_file = 'java -jar stats-0.1.0.jar';
+            exec(parser_file + ' "' + fileName + '"', {cwd: parserPath, maxBuffer: 1024 * 5000}, function (err, stdout, stderr) {
                 logger.info('[PARSER] Finished parsing %s', match_id);
+                console.log(stdout);
                 if(!err) {
                     //process parser output
                     db.matches.update({
@@ -60,6 +61,7 @@ ReplayParser = (function() {
                         fs.unlink(fileName);
                     }
                 }
+                else if(stderr) logger.error(JSON.stringify(stderr));
                 return cb(err, match_id);
             });
         }, manual);
