@@ -44,7 +44,7 @@ ReplayParser = (function() {
             var parser_file;
             if(getOperatingSystem() == "windows") parser_file = 'parser.exe';
             else if(getOperatingSystem() == "linux") parser_file = 'java -jar parser/stats-0.1.0.jar';
-            exec(parser_file + ' "' + fileName + '"', {cwd: parserPath}, function (err, stdout) {
+            exec(parser_file + ' "' + fileName + '"', {cwd: parserPath, maxBuffer: 1024 * 500}, function (err, stdout) {
                 logger.info('[PARSER] Finished parsing %s', match_id);
                 if(!err) {
                     //process parser output

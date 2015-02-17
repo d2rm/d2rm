@@ -11,12 +11,12 @@ module.exports = (grunt) ->
     copy:
       main:
         files: [
-          src: 'parser/stats-0.1.0.jar'
-          dest: 'build/D2RM/linux32/parser/stats-0.1.0.jar'
+          src: 'parser/dist/stats-0.1.0.jar'
+          dest: 'build/D2RM/linux32/parser/dist/stats-0.1.0.jar'
           flatten: true
         ,
-          src: 'parser/stats-0.1.0.jar'
-          dest: 'build/D2RM/linux64/parser/stats-0.1.0.jar'
+          src: 'parser/dist/stats-0.1.0.jar'
+          dest: 'build/D2RM/linux64/parser/dist/stats-0.1.0.jar'
           flatten: true
         ]
 
@@ -90,7 +90,7 @@ module.exports = (grunt) ->
         win: buildPlatforms.win
         linux32: buildPlatforms.linux32
         linux64: buildPlatforms.linux64
-      src: ['./views/**', './css/**', './fonts/**', './images/**', './js/**', './l10n/**', './node_modules/**', './featured-music/**', '!./node_modules/grunt*/**', '!./node_modules/coffeelint/**', './index.html', './splash.html', './package.json', './constants.json', './abilities.json']
+      src: ['./views/**', './css/**', './fonts/**', './images/**', './js/**', './l10n/**', './node_modules/**', '!./node_modules/grunt*/**', '!./node_modules/coffeelint/**', './index.html', './splash.html', './package.json', './constants.json', './abilities.json']
 
     compress:
       linux32:

@@ -54,7 +54,6 @@ class Sidebar
           window.matchlist.populate(null, players, 'players')
         )
       else if $(@).hasClass('refresh')
-        resetCache()
         backend.refreshDOTA((err, result) ->
           if(err)
             logger.error(err)
