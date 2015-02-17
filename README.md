@@ -5,10 +5,10 @@ It requires no sign up, displays no ads and is 100% safe.
 
 ![screenshot](https://raw.githubusercontent.com/d2rm/website/gh-pages/public/images/screenshots/mmr.PNG)
 
-## Download v0.2.3 (stable releases, prebuilt binaries)
-- [Windows](https://github.com/d2rm/d2rm/releases/download/0.2.3/D2RM.exe?raw=true)
-- [Linux 32](https://github.com/d2rm/d2rm/releases/download/0.2.3/D2RM-linux32.tar.gz?raw=true)
-- [Linux 64](https://github.com/d2rm/d2rm/releases/download/0.2.3/D2RM-linux64.tar.gz?raw=true)
+## Download v0.3.0 (stable releases, prebuilt binaries)
+- [Windows](https://github.com/d2rm/d2rm/releases/download/0.3.0/D2RM.exe?raw=true)
+- [Linux 32](https://github.com/d2rm/d2rm/releases/download/0.3.0/D2RM-linux32.tar.gz?raw=true)
+- [Linux 64](https://github.com/d2rm/d2rm/releases/download/0.3.0/D2RM-linux64.tar.gz?raw=true)
 - Mac OSX binaries are not available because I don't have access to a mac in order to rebuild some native node modules.
 
 ## How does it work?

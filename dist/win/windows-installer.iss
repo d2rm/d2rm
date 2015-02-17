@@ -1,6 +1,6 @@
 ; Installer Variables
 #define AppName "DOTA 2 Replay Manager"
-#define AppVersion "0.2.3"
+#define AppVersion "0.3.0"
 #define AppPublisher "Pavel Yarmak"
 #define AppURL "https://github.com/d2rm/d2rm"
 #define AppExeName "run.bat"
@@ -73,6 +73,7 @@ Source: "..\..\js\*"; DestDir: "{app}\app\js\"; Flags: ignoreversion recursesubd
 Source: "..\..\images\*"; DestDir: "{app}\app\images\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\node_modules\node-uuid\*"; DestDir: "{app}\app\node_modules\node-uuid\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\node_modules\request\*"; DestDir: "{app}\app\node_modules\request\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\node_modules\request-progress\*"; DestDir: "{app}\app\node_modules\request-progress\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\node_modules\tarball-extract\*"; DestDir: "{app}\app\node_modules\tarball-extract\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\node_modules\universal-analytics\*"; DestDir: "{app}\app\node_modules\universal-analytics\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\..\node_modules\nedb\*"; DestDir: "{app}\app\node_modules\nedb\"; Flags: ignoreversion recursesubdirs createallsubdirs

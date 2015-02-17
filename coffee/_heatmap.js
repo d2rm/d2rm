@@ -93,10 +93,12 @@ Heatmap = (function() {
 
     Heatmap.prototype.populateDatatable = function (start_time, end_time) {
         var self = this;
+        var num = (Settings.get('hide-test-matches') == "true") ? 1 : 0;
         db.matches.find({
             duration: {
                 $exists: true
             },
+            human_players: {$gt: num},
             start_time: {$gte: start_time, $lte: end_time},
             $where: function () {
                 var result = this.players.some(function (player) {
