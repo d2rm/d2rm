@@ -1,10 +1,4 @@
-[![LICENSE](https://img.shields.io/badge/license-GNU-green.svg)]()
-[![Gitter](https://img.shields.io/badge/chat-gitter-ff69b4.svg)](https://gitter.im/Atraci/Atraci-Angular)
-[![STATE](https://img.shields.io/badge/state-alpha-blue.svg)]()
-
-Refactoring Atraci to angular based application : https://github.com/Atraci/Atraci
-
-![screenshot](http://i.imgur.com/AWzVRZf.jpg)
+Refactoring D2RM to angular based application.
 
 In order to start working on this repository, you will have to do the following steps:
 - Download and install Ruby
