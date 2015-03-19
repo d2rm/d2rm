@@ -1,0 +1,21 @@
+/** Colors */
+$mainBgColor : #f8f8f8;
+$mainRed: #eb2728;
+$mainRedDarker: darken( $mainRed, 15% );
+$mainRedBrighter: lighten( $mainRed, 15% );
+$lightGray: #d5d5d5;
+$mediumGray: #888;
+$darkGray : #505050;
+$graysGradient: linear-gradient(to right, #ededed 1%,#dfdfdf 100%);
+
+/** Fonts */
+$mainFontPack : "Oswald", "Arial";
+
+
+/** Sizes */
+$sideBarWidth: 250px;
+$headerHeight: 40px;
+
+
+/** Combinations */
+$separatorBorder: 1px solid $lightGray;

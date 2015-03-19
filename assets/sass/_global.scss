@@ -1,0 +1,43 @@
+@import url(http://fonts.googleapis.com/css?family=Oswald:400,300,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800);
+
+*
+{
+  @include no-select();
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+html,body
+{
+  height: 100%;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+body
+{
+  background: $mainBgColor;
+}
+
+.pullLeft
+{
+  float: left;
+}
+
+.pullRight
+{
+  float: right;
+}
+
+.disabledElem
+{
+  pointer-events: none;
+}
+
+[class^=col-]
+{
+  box-sizing: border-box !important;
+}

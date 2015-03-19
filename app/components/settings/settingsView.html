@@ -1,0 +1,35 @@
+
+<form class="formWrapper centered form-horizontal">
+  <div class="form-group inputGroup">
+    <label for="api-key" class="col-md-2">Steam Web API Key</label>
+    <div class="col-md-8">
+      <div class="input-group">
+        <input id="api-key" type="text" placeholder="Steam Web API Key..." name="api-key" class="form-control"/><span class="input-group-btn">
+          <button type="button" role="button" aria-disabled="false" ng-click="settings.getAPIKey()" class="btn btn-primary">Get One Here</button></span>
+      </div>
+    </div>
+  </div>
+  <div class="form-group inputGroup">
+    <label for="steam-username" class="col-md-2">Steam Username</label>
+    <div class="col-md-8">
+      <input id="steam-username" type="text" ng-model="settings.model.steamUsername" placeholder="Your steam username..." class="form-control"/>
+    </div>
+  </div>
+  <div class="form-group inputGroup">
+    <label for="steam-password" class="col-md-2">Steam Password</label>
+    <div class="col-md-8">
+      <input id="steam-password" type="password" ng-model="settings.model.steamPassword" placeholder="Your steam password..." class="form-control"/>
+    </div>
+  </div>
+  <div class="form-group inputGroup">
+    <label class="col-md-2">Scrape Full History</label>
+    <input id="save-all-matches" type="checkbox" checked="" ng-model="settings.model.saveAllMatches" class="toggleSwitch"/>
+    <label for="save-all-matches" class="col-md-10 toggle"></label>
+  </div>
+  <div class="form-group">
+    <div class="col-md-4 col-md-offset-8 col-lg-3 col-lg-offset-9">
+      <button ng-click="settings.cancel()" class="btn btn-danger">Cancel</button>
+      <button ng-click="settings.save()" class="btn btn-primary">Save</button>
+    </div>
+  </div>
+</form>

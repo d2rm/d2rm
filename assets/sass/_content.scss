@@ -1,0 +1,289 @@
+section
+{
+  @include calc(width, #{"100% - " + $sideBarWidth});
+  @include calc(height, #{"100% - " + $headerHeight});
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  transition: height 0.3s;
+  .marginPage
+  {
+    margin: 2px;
+  }
+
+  .trackItems
+  {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+
+    .trackItem
+    {
+      overflow: hidden;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+      background-position: center center !important;
+      background-color: #000000;
+      width: 200px;
+      height: 200px;
+      display: block;
+      margin: 1px;
+      float: left;
+      position: relative;
+      flex: 1 1 auto;
+      .info
+      {
+        font-family: $mainFontPack;
+        position: absolute;
+        width: 100%;
+        height: 37%;
+        background:rgba(0,0,0,0.8);
+        bottom: 0;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.2s;
+        span
+        {
+          position: absolute;
+          margin-left: 10px;
+          display: block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          bottom: 43px;
+          &.trackName
+          {
+            bottom: 2px;
+            width: 230px;
+            font-size: 20px;
+            height: 30px;
+          }
+        }
+      }
+      &:hover, &.active
+      {
+        .info
+        {
+          height: 100%;
+          background: rgba(0,0,0,0.9);
+          &::before
+          {
+            background: url('../imgs/playIcon.png') no-repeat center center rgba(0,0,0,0.2);
+            background-size: 50px;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            content: "";
+            display: block;
+            padding-top: 100px;
+          }
+        }
+      }
+
+      &.ng-enter,
+      &.ng-leave
+      {
+        transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
+        position: relative;
+        display: block;
+      }
+
+      &.ng-leave
+      {
+        opacity: 1;
+        top: 0;
+        height: 200px;
+        border-radius: 0;
+
+        &.ng-leave-active
+        {
+          opacity: 0;
+          top: -50px;
+          height: 0;
+        }
+      }
+
+      &.ng-enter
+      {
+        opacity: 0;
+        top: -50px;
+        height: 0;
+
+        &.ng-enter-active
+        {
+          opacity: 1;
+          top: 0;
+          height: 200px;
+        }
+      }
+
+    }
+  }
+
+  .currentPageHeader
+  {
+    .page-header
+    {
+      margin-top: 20px;
+    }
+    span
+    {
+      position: absolute;
+      cursor: pointer;
+    }
+    .fa-arrow-circle-o-right
+    {
+      right: 0.5em;
+    }
+    .fa-arrow-circle-o-left
+    {
+      left: 0.5em;
+    }
+    h3
+    {
+      text-align: center;
+    }
+  }
+
+  .currentPageContainer
+  {
+    width: calc(100% - 30px);
+    transition: all 0.2s;
+    &.ng-leave
+    {
+      margin-left: 0;
+      &.ng-leave-active
+      {
+        margin-left: -100% !important;
+      }
+    }
+    &.ng-enter
+    {
+      margin-left: 100%;
+      &.ng-enter-active
+      {
+        margin-left: 0 !important;
+      }
+    }
+  }
+
+  .artistHeader
+  {
+    height: 200px;
+    position: relative;
+    background: #fff;
+
+    .bgImage
+    {
+      position: absolute;
+      width: 100%;
+      @include calc(height, "100% - 50px");
+      background-size: cover;
+      background-position: center;
+      opacity: 0.3;
+    }
+
+    .name
+    {
+      position: absolute;
+      left: 170px;
+      top: 90px;
+      color: #fff;
+      font-family: "Open Sans";
+      font-weight: 600;
+      font-size: 25px;
+      text-transform: uppercase;
+    }
+
+    .smallImage
+    {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-size: cover;
+      background-position: center;
+      top: 80px;
+      left: 50px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.4);
+    }
+
+    .tabsHolder
+    {
+      position: absolute;
+      bottom: 0;
+      height: 40px;
+      width: calc(100% - 10px);
+      text-indent: 165px;
+      padding: 5px;
+    }
+  }
+
+  .albumItems
+  {
+    margin: 10px;
+    .albumItem
+    {
+      display: block;
+      overflow: hidden;
+      padding: 10px;
+      background: lighten($lightGray, 10%);
+      margin-bottom: 10px;
+      border: 1px solid $lightGray;
+
+      .albumCover
+      {
+        margin-right: 10px;
+        overflow: hidden;
+        width: 100px;
+        float: left;
+
+        img
+        {
+          width: 100px;
+          height: 100px;
+        }
+      }
+
+      .albumInfo
+      {
+        float: left;
+        width: calc(100% - 110px);
+
+        .name
+        {
+          font-family: "Open Sans";
+          font-weight: 600;
+          font-size: 20px;
+          color: darken($lightGray, 10%);
+          margin-bottom: 10px;
+          cursor: pointer;
+
+          &:hover
+          {
+            color: darken($lightGray, 25%);
+          }
+        }
+
+        .tracksList
+        {
+          .trackName
+          {
+            font-family: "Open Sans";
+            font-weight: 600;
+            font-size: 15px;
+            padding: 5px 10px;
+            color: darken($lightGray, 15%);
+            cursor: pointer;
+
+            &:hover
+            {
+              color: #fff;
+              background: $lightGray;
+            }
+          }
+        }
+      }
+
+    }
+  }
+}

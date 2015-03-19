@@ -1,0 +1,79 @@
+aside
+{
+  @include calc(height, "100% - 60px");
+  width: $sideBarWidth;
+  box-sizing: border-box;
+  border-right: $separatorBorder;
+
+  .sideMenuWrapper
+  {
+    @include calc(height, "100% - 190px");
+    overflow: hidden;
+    ul
+    {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sideMenu
+    {
+
+      &.main
+      {
+        height: 230px;
+      }
+
+      &.playlists
+      {
+        overflow-y: auto;
+        overflow-x: hidden;
+        @include calc(height, "100% - 220px");
+      }
+
+      .sideMenuItem
+      {
+        cursor: pointer;
+        font-family: "Open Sans";
+        font-size: 11px;
+        text-transform: uppercase;
+        font-weight: 600;
+        -webkit-font-smoothing: antialiased;
+        a
+        {
+          color: $mediumGray;
+          text-decoration: none;
+          padding: 13px;
+          width: 100%;
+          display: block;
+        }
+        &:hover, &.active
+        {
+          background: $graysGradient;
+        }
+        &.active
+        {
+          border-left: 8px solid $mediumGray;
+          a
+          {
+            color: $mainRed;
+            font-weight: bold;
+          }
+
+          .fa
+          {
+            color: $mainRed;
+          }
+        }
+        .fa
+        {
+          margin-right: 5px;
+        }
+      }
+
+      .sideMenuSeparator
+      {
+        border-bottom: $separatorBorder;
+      }
+    }
+  }
+}

@@ -1,6 +1,0 @@
-{
-  "languages": [
-    { "label": "English", "lang": "en", "default": true },
-    { "label": "Русский", "lang": "ru" }
-  ]
-}

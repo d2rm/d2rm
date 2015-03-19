@@ -1,283 +1,114 @@
 <!doctype html>
-
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="css/vendor/jquery-ui/jquery-ui-1.10.3.custom.css">
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/vendor/alertify/alertify.min.css">
-    <link rel="stylesheet" type="text/css" href="css/vendor/alertify/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/vendor/dataTablesBootstrap/dataTables.bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/vendor/jquery.qtip.min.css">
-    <link rel="stylesheet" type="text/css" href="css/vendor/c3.min.css">
-    <link rel="stylesheet" type="text/css" href="css/vendor/cal-heatmap.css">
-    <link rel="stylesheet" type="text/css" href="css/app.css">
+
+    <title>Atraci</title>
+    <meta name="description" content="DOTA 2 Replay Manager">
+    <meta name="author" content="Pavel Yarmak">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-resource/angular-resource.min.js"></script>
+    <script src="node_modules/angular-animate/angular-animate.min.js"></script>
+    <script src="node_modules/angular-route/angular-route.min.js"></script>
 </head>
-<body>
-<!--<div class="blackScreen"></div>-->
+
+<body ng-app="D2RM" ng-controller="MainAppController">
+
+<div id="modal">
+    <div class="modalWrapper">
+        <div class="controls">
+            <i class="fa fa-close"></i>
+        </div>
+        <div class="header">
+            Title
+        </div>
+        <div class="content">
+            Content
+        </div>
+        <div class="footer">
+            Footer
+        </div>
+    </div>
+</div>
+
 <header>
-    <div id="Logo" class="HeaderItem FloatedLeft">
+    <div class="logo pullLeft">
         DOTA 2 Replay Manager
+        <span class="version">v{{version}}</span>
     </div>
-    <div id="WindowButtons" class="HeaderItem FloatedRight">
-        <span class="Btn Close fa fa-times-circle" data-l10n-id="hint_close_window" title></span>
-        <span class="Btn Expand fa fa-plus-circle" data-l10n-id="hint_expand_window" title></span>
-        <span class="Btn Minimize fa fa-minus-circle" data-l10n-id="hint_minimize_window" title></span>
-    </div>
+    <ul class="windowControls" ng-controller="windowController">
+        <li class="fa fa-minus" ng-click="minimizeWindow()"></li>
+        <li class="fa fa-plus" ng-click="expandWindow()"></li>
+        <li class="fa fa-close" ng-click="closeWindow()"></li>
+    </ul>
 </header>
 
-<section class="mainSection">
-    <div id="SideBar" class="FloatedLeft">
-      <div class="top-sidebar">
-        <ul>
-            <li class='profile' style="display: none;">
-                <i class='fa fa-user'></i>
-                <span data-l10n-id='profile'>My Profile</span>
+<aside class="pullLeft">
+    <div class="sideMenuWrapper">
+        <ul class="sideMenu main">
+            <li class="sideMenuItem" ng-class="{ active : getLocationPath('/home') }">
+                <a href="index.html#/home">
+                    <i class="fa fa-gamepad"></i> Match History
+                </a>
             </li>
-            <li class='tracked-players'>
-                <i class='fa fa-users'></i>
-                <span data-l10n-id='tracked_players'>Tracked Players</span>
+            <li class="sideMenuItem" ng-class="{ active : getLocationPath('/players') }">
+                <a href="index.html#/players">
+                    <i class="fa fa-users"></i> Tracked Players
+                </a>
             </li>
-            <li class='matches'>
-                <i class='fa fa-gamepad'></i>
-                <span data-l10n-id='matches'>Match History</span>
+
+            <li class="sideMenuSeparator"></li>
+
+            <li class="sideMenuItem" ng-class="{ active : getLocationPath('/history') }">
+                <a href="index.html#/history">
+                    <i class="fa fa-history"></i> History
+                </a>
             </li>
-            <li class='history'>
-                <i class='fa fa-history'></i>
-                <span data-l10n-id='history'>Recently Watched</span>
+            <li class="sideMenuItem" ng-class="{ active : getLocationPath('/settings') }">
+                <a href="index.html#/settings">
+                    <i class="fa fa-cog"></i> Settings
+                </a>
+            </li>
+            <li class="sideMenuItem" ng-class="{ active : getLocationPath('/donate') }">
+                <a href="index.html#/donate">
+                    <i class="fa fa-money"></i> Donate
+                </a>
+            </li>
+
+            <li class="sideMenuSeparator"></li>
+        </ul>
+
+        <ul class="sideMenu playlists">
+            <li class="sideMenuItem" ng-class="{ active : getLocationPath('/newplaylist') }">
+                <a href="index.html#/newplaylist">
+                    <i class="fa fa-plus-square"></i> New Playlist
+                </a>
+            </li>
+
+            <li class="sideMenuItem" ng-repeat="playlist in playlists" ng-class="{ active : getLocationPath('/playlist/' + playlist._id) }">
+                <a href="index.html#/playlist/{{ playlist._id }}">
+                    <i class="fa fa-align-justify"></i> {{ playlist.name }}
+                </a>
             </li>
         </ul>
-      </div>
-      <div class="middle-sidebar">
-        <ul>
-          <li class='sep'>
-            <hr>
-          </li>
-          <li class='refresh no-page'>
-              <i class='fa fa-refresh'></i>
-              <span data-l10n-id='refresh'>Synchronize Data</span>
-          </li>
-          <li class='settings no-page'>
-            <i class='fa fa-cog'></i>
-            <span data-l10n-id='settings'>Settings</span>
-          </li>
-          <li class='donations no-page'>
-            <i class='fa fa-money'></i>
-            <span data-l10n-id='donate_us'>Donate</span>
-          </li>
-          <li class='sep'>
-            <hr>
-          </li>
-        </ul>
-      </div>
-      <div class="bottom-sidebar">
-        <ul>
-          <li class='new no-page'>
-            <i class='fa fa-plus-square'></i>
-            <span data-l10n-id='new_playlist'>New playlist</span>
-          </li>
-        </ul>
-      </div>
     </div>
+</aside>
 
-    <img id="Spinner" src="images/loading-spokes.svg" alt="Loading icon" />
-    <div id="ContentWrapper" class="FloatedLeft">
+<section class="pullLeft">
+    <div class="currentPage" ng-controller="currentPageController as page">
+        <div class="currentPageHeader">
+            <span class="Btn fa fa-2x fa-arrow-circle-o-left" title="Back" ng-click="page.clickBack()"></span>
+            <span class="Btn fa fa-2x fa-arrow-circle-o-right" title="Forward" ng-click="page.clickForward()"></span>
+            <div class="page-header"><h3>{{page.title}}</h3></div>
+        </div>
+        <div class="currentPageContainer container-fluid" ng-view ng-cloak></div>
     </div>
-
-    <div id="playlist-panel">
-        <form action="upload">
-            <fieldset>
-                <table>
-                    <tbody>
-                        <tr>
-                            <p style="font-size:15px; color:#444">Name:</p>
-                        </tr>
-                        <tr>
-                        <input style="margin-top:10px; border-radius:4px; height:25px; width: 100%" type="text" id="playListName">
-                        </tr>
-                    </tbody>
-                </table>
-            </fieldset>
-        </form>
-    </div>
-
-
-    <div id="settings-panel">
-     <form>
-        <fieldset>
-            <table>
-                <colgroup width="160"></colgroup>
-                <colgroup width="370"></colgroup>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><label for="LanguageSelect">Language</label></td>
-                        <td>
-                            <select name="LanguageSelect" id="LanguageSelect" class="form-control"></select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="ThemeSelect">Theme</label></td>
-                        <td>
-                            <select name="ThemeSelect" id="ThemeSelect" class="form-control">
-                                <option value="light">Light</option>
-                                <option value="dark">Dark</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="APIKey">Steam Web API Key</label>
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" id="APIKey" placeholder="Click the 'Get one here' button to get yours" name="api-key">
-                            <button type="button" class="btn btn-primary" role="button" aria-disabled="false" id="getAPIKey">
-                                Get one here
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="replay-folder-input">DOTA 2 Replay Folder</label></td>
-                        <td>
-                            <input type="text" class="form-control" id="replay-folder-input" placeholder="Not set..." name="replay-folder-input">
-                            <button type="button" class="btn btn-primary" role="button" aria-disabled="false" id="replay-folder-button">
-                                Browse
-                            </button>
-                            <input type="file" id="replay-folder" class="hidden-input" nwdirectory nwworkingdir="C:\Program Files (x86)\Steam\SteamApps\common\dota 2 beta\dota\replays" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="steam-folder-input">Steam Folder</label></td>
-                        <td>
-                            <input type="text" class="form-control" id="steam-folder-input" placeholder="Not set..." name="steam-folder-input">
-                            <button type="button" class="btn btn-primary" role="button" aria-disabled="false" id="steam-folder-button">
-                                Browse
-                            </button>
-                            <input type="file" id="steam-folder" class="hidden-input" nwdirectory nwworkingdir="C:\Program Files (x86)\Steam" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="steam-user">Steam Username</label></td>
-                        <td>
-                            <input type="text" class="form-control" id="steam-user" placeholder="Steam username..." name="steam-user"
-                                   title='This does not have to be your main account (however this is the only account we may fetch MMR history for). A steam account is needed in order to fetch information from the DOTA 2 client (e.g. replay URL).'>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="steam-password">Steam Password</label></td>
-                        <td><input type="password" class="form-control" id="steam-password" placeholder="Steam password..." name="steam-password"></td>
-                    </tr>
-                    <tr><td colspan="2"><h4>Requires Steam Credentials</h4><hr></td></tr>
-                    <tr><td colspan="2" style="padding-top: 0px;">
-                        <table>
-                            <colgroup width="160"></colgroup>
-                            <colgroup width="105"></colgroup>
-                            <colgroup width="160"></colgroup>
-                            <colgroup width="105"></colgroup>
-                            <tbody>
-                                <tr>
-                                    <td><label for="track-steam-account">Track Steam Account</label></td>
-                                    <td>
-                                        <input id="track-steam-account" type="checkbox" class="checkbox-settings" name="track-steam-account" title="Track the steam account provided above. This option allows access to private matches, MMR history graph and more for this account. Enabling this will make you unable to synchronize data while your DOTA 2 client is open.">
-                                    </td>
-                                    <td><label for="hide-test-matches">Hide Irrelevant Matches</label></td>
-                                    <td>
-                                        <input id="hide-test-matches" type="checkbox" class="checkbox-settings" name="hide-test-matches" title="Hide matches with only 1 human player in them. Useful only when the 'Track Steam Account' option is enabled.">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label for="save-all-matches">Scrape Full History</label></td>
-                                    <td>
-                                        <input id="save-all-matches" type="checkbox" class="checkbox-settings" name="save-all-matches" title="Scrape the full match history for tracked players as opposed to the latest 100 matches.">
-                                    </td>
-                                    <td><label for="delete-replays">Delete Parsed Replays</label></td>
-                                    <td>
-                                        <input id="delete-replays" type="checkbox" class="checkbox-settings" name="delete-replays" title="Delete downloaded replays after they're done parsing. Useful If you want to conserve space while automatically parsing all replays. You can still manually save replays with this option enabled.">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label for="save-all-replays">Parse All Replays</label></td>
-                                    <td>
-                                        <input id="save-all-replays" type="checkbox" class="checkbox-settings" name="save-all-replays" title="Automatically download and parse all replays when synchronizing data.">
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td></tr>
-                    <!--<tr>-->
-                        <!--<td><label for="enable-notifications">Enable Notification</label></td>-->
-                        <!--<td>-->
-                            <!--<input id="enable-notifications" type="checkbox" class="checkbox-settings" name="enable-notification">-->
-                        <!--</td>-->
-                    <!--</tr>-->
-                    <tr><td colspan="2"><hr></td></tr>
-                    <tr>
-                        <td><label for="userID">Users to Track</label></td>
-                        <td>
-                            <input type="text" class="form-control" id="userID" placeholder="Steam user ID to track..." name="user-id"
-                                    title="Accepted formats: 32bit(67920622), 64bit(76561198028186350), vanity url(nooblazor)">
-                            <button type="button" class="btn btn-primary" role="button" aria-disabled="false" id="addUser">
-                                Add user
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label style="margin-bottom: 20px;">Tracked Users</label></td>
-                        <td><ul class="list-group" id="userList"></ul></td>
-                    </tr>
-                    <tr>
-                        <td><label>Developer Tools</label></td>
-                        <td>
-                            <button id="devTools" type="button" class="btn btn-info" role="button" aria-disabled="false">
-                                <span>Launch</span>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label>Reset Database</label></td>
-                        <td>
-                            <button id="resetDatabase" type="button" class="btn btn-danger" role="button" aria-disabled="false">
-                                <span>Clear</span>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </fieldset>
-    </form>
-</div>
 </section>
 
-<!-- SCRIPTS -->
-<script src="js/vendor/jquery-2.1.1.min.js"></script>
-<script src="js/vendor/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script>
-<script>
-// Resolve name collision between jQuery UI and Twitter Bootstrap
-$.widget.bridge('uitooltip', $.ui.tooltip);
-</script>
-<script src="js/vendor/d3.min.js"></script>
-<script src="js/vendor/d3.tip.js"></script>
-<script src="js/vendor/tooltip.js"></script>
-<script src="js/vendor/moment.min.js"></script>
-<script src="js/vendor/alertify.min.js"></script>
-<script src="js/vendor/jquery.dataTables.min.js"></script>
-<script src="js/vendor/dataTables.bootstrap.min.js"></script>
-<script src="js/vendor/numeral.min.js"></script>
-<script src="js/vendor/jquery.qtip.min.js"></script>
-<script src="js/vendor/c3.min.js"></script>
-<script src="js/vendor/cal-heatmap.js"></script>
-<script src="js/app.js"></script>
-<!---->
+<script src="assets/js/main.js"></script>
+<script src="assets/js/move.min.js"></script>
 </body>
 </html>

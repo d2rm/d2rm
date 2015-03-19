@@ -1,0 +1,24 @@
+form.formWrapper.centered.form-horizontal
+    .form-group.inputGroup
+        label(for='api-key').col-md-2 Steam Web API Key
+        .col-md-8
+            .input-group
+                input#api-key.form-control(type='text', placeholder="Steam Web API Key...", name='api-key')
+                span.input-group-btn
+                    button.btn.btn-primary(type='button', role='button', aria-disabled='false' ng-click="settings.getAPIKey()") Get One Here
+    .form-group.inputGroup
+        label(for='steam-username').col-md-2 Steam Username
+        .col-md-8
+            input#steam-username.form-control(type='text', ng-model='settings.model.steamUsername', placeholder='Your steam username...')
+    .form-group.inputGroup
+        label(for='steam-password').col-md-2 Steam Password
+        .col-md-8
+            input#steam-password.form-control(type='password', ng-model='settings.model.steamPassword', placeholder='Your steam password...')
+    .form-group.inputGroup
+        label.col-md-2 Scrape Full History
+        input#save-all-matches.toggleSwitch(type='checkbox', checked='', ng-model='settings.model.saveAllMatches')
+        label(for='save-all-matches').col-md-10.toggle
+    .form-group
+        .col-md-4.col-md-offset-8.col-lg-3.col-lg-offset-9
+            button.btn.btn-danger(ng-click='settings.cancel()') Cancel
+            button.btn.btn-primary(ng-click='settings.save()') Save

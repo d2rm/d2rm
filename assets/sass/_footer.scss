@@ -1,0 +1,136 @@
+footer
+{
+  @extend .pullLeft;
+  @include calc(width, #{"100% - " + $sideBarWidth});
+  box-sizing: border-box;
+  position: relative;
+  transition: all 0.2s;
+
+  &.disabled
+  {
+    pointer-events: none;
+    .disabledBackground
+    {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 12;
+    }
+  }
+
+  .togglePlaylistButton
+  {
+    position: absolute;
+    top: -20px;
+    background: $mainRed;
+    width: 60px;
+    height: 20px;
+    color: #fff;
+    border-radius: 2px 2px 0 0;
+    left: calc(50% - 30px);
+    text-align: center;
+    line-height: 21px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index:13;
+
+    &:hover
+    {
+      color: $mainRed;
+      background: #fff;
+    }
+  }
+
+  .playlist
+  {
+    overflow-y: hidden;
+    overflow-x: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    border-top: 1px solid $lightGray;
+
+    .trackItems
+    {
+      user-select: none;
+      overflow-y: hidden;
+      overflow-x: auto;
+      height: 60px;
+      .trackItem
+      {
+        width: 200px;
+        height: 60px;
+        margin-right: 3px;
+        overflow: hidden;
+        display: inline-block;
+        background-size: 60px;
+        background-repeat: no-repeat;
+        border: 1px solid $lightGray;
+        border-right: 2px solid $mediumGray;
+        box-sizing: border-box;
+        background-color: $lightGray;
+        cursor: pointer;
+        user-select: none;
+
+        .info
+        {
+          margin: 5px 5px 5px 65px;
+          height: 50px;
+          font-family: $mainFontPack;
+          font-size: 13px;
+          user-select: none;
+          span
+          {
+            text-align: center;
+            display: block;
+            height: 17px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            &.artistName
+            {
+              font-size: 11px;
+              margin-top: 12px;
+              color: $mediumGray;
+            }
+            &.trackName
+            {
+              font-size: 16px;
+              color: $darkGray;
+            }
+          }
+        }
+
+        &:hover, &.active
+        {
+          background-color: #2d2d2d;
+          .info
+          {
+            span
+            {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .timeProgression
+  {
+    @include calc(width, "100% - 3px");
+    height: 7px;
+    background: $lightGray;
+    cursor: pointer;
+    transition: all 0.05s;
+    position: absolute;
+    margin-left: 3px;
+    z-index: 11;
+
+    &[value]::-webkit-progress-value
+    {
+      background: linear-gradient(to right, #a90329 0%,#eb2728 100%);
+    }
+  }
+}
