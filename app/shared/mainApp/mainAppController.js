@@ -11,10 +11,4 @@ app.controller("MainAppController", function($rootScope, $scope, $location, DBSe
     DBService.getAllPlaylists(function (data) {
         $rootScope.playlists = data;
     });
-
-    $scope.$on('addTrackToPlaylist', function(event, args){
-        var track = args.trackObject,
-            playlistID = args.playlistID;
-        DBService.InsertNewPlaylistTrack(track, playlistID);
-    });
 });
