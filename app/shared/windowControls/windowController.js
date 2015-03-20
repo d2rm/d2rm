@@ -3,15 +3,20 @@ app.controller('windowController', function ($scope, storageService) {
         win = gui.Window.get(),
         storage = storageService;
 
-    win.x = storage.get("windowLocationX");
-    win.y = storage.get("windowLocationY");
+    function restoreWindow() {
+        $scope.isWindowExpanded = storage.get('windowMaximized') === 'true';
+        if($scope.isWindowExpanded) return win.maximize();
+        win.x = storage.get("windowLocationX");
+        win.y = storage.get("windowLocationY");
+    }
 
     function saveWindowLocationOnScreen () {
         storage.set("windowLocationX", win.x);
         storage.set("windowLocationY", win.y);
+        storage.set('windowMaximized', $scope.isWindowExpanded);
     }
 
-    $scope.isWindowExpanded = false;
+    restoreWindow();
 
     $scope.closeWindow = function () {
         saveWindowLocationOnScreen();
