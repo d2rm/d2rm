@@ -26,8 +26,6 @@ gulp.task('nwBuild', function () {
         "./node_modules/angular-route/angular-route.min.js",
         "./node_modules/moment/**",
         "./node_modules/request/**",
-        "./node_modules/youtube-dl/**",
-        "./node_modules/youtube-api/**",
         "./node_modules/nedb/**",
         "./node_modules/underscore/underscore-min.js"
     ];
