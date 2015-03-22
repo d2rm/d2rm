@@ -14,9 +14,18 @@
     <script src="node_modules/angular-animate/angular-animate.min.js"></script>
     <script src="node_modules/angular-route/angular-route.min.js"></script>
     <script src="node_modules/angular-loading-bar/build/loading-bar.min.js"></script>
+    <script>
+        angular.element(document).ready(function () {
+            if (location.search.indexOf("test=protractor") > -1) {
+                window.name = 'NG_DEFER_BOOTSTRAP!' + window.name;
+            }
+            document.body.setAttribute('ng-app', 'D2RM');
+            angular.bootstrap(document, ['D2RM']);
+        });
+    </script>
 </head>
 
-<body ng-app="D2RM" ng-controller="MainAppController">
+<body ng-controller="MainAppController">
 
 <div id="modal">
     <div class="modalWrapper">
@@ -89,7 +98,8 @@
                 </a>
             </li>
 
-            <li class="sideMenuItem" ng-repeat="playlist in playlists" ng-class="{ active : getLocationPath('/playlist/' + playlist._id) }">
+            <li class="sideMenuItem" ng-repeat="playlist in playlists"
+                ng-class="{ active : getLocationPath('/playlist/' + playlist._id) }">
                 <a href="index.html#/playlist/{{ playlist._id }}">
                     <i class="fa fa-align-justify"></i> {{ playlist.name }}
                 </a>
@@ -103,6 +113,7 @@
         <div class="currentPageHeader">
             <span class="Btn fa fa-2x fa-arrow-circle-o-left" title="Back" ng-click="page.clickBack()"></span>
             <span class="Btn fa fa-2x fa-arrow-circle-o-right" title="Forward" ng-click="page.clickForward()"></span>
+
             <div class="page-header"><h3>{{page.title}}</h3></div>
         </div>
         <div class="currentPageContainer container-fluid" ng-view ng-cloak></div>
