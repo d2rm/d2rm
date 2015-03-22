@@ -2,7 +2,7 @@ app.factory('ModalService', function () {
     function Modal(options)
     {
         this.opts = this.merge({
-            title : "Atraci",
+            title : "D2RM",
             tpl : "",
             footer : ""
         }, options);

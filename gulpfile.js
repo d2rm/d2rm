@@ -10,7 +10,7 @@ var gulp = require('gulp'),
     ignore = require("gulp-util");
 
 var Globals = {
-    "nwVersion" : "0.12.0-alpha2"
+    "nwVersion" : "0.12.0"
 };
 
 gulp.task('default', ['buildDev']);

@@ -1,10 +1,10 @@
 {
-  "name": "Atraci",
+  "name": "D2RM",
   "version": "1.0.0",
   "description": "Free music streaming player",
   "repository": {
     "type": "git",
-    "url": "http://github.com/Atraci/Atraci.git"
+    "url": "https://github.com/d2rm/d2rm.git"
   },
   "main": "index.html",
   "window": {
