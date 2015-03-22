@@ -23,7 +23,7 @@ gulp.task('nwBuild', function () {
         "./node_modules/angular-animate/angular-animate.min.js",
         "./node_modules/angular-resource/angular-resource.min.js",
         "./node_modules/angular-route/angular-route.min.js",
-        "./node_modules/angular-route/angular-route.min.js",
+        "./node_modules/angular-loading-bar/build/loading-bar.min.js",
         "./node_modules/moment/**",
         "./node_modules/request/**",
         "./node_modules/nedb/**",
@@ -41,7 +41,7 @@ gulp.task('nwBuild', function () {
 
 gulp.task('openApp', function () {
     gulp.src('cache/' + Globals.nwVersion + '/' + PLATFORM + '/nw.exe', {read: true})
-        .pipe(shell(['<%= file.path %> ./']));
+        .pipe(shell(['<%= file.path %> ./ --enable-logging --debug']));
 });
 
 gulp.task('concatJS', function () {

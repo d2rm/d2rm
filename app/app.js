@@ -1,10 +1,5 @@
 var app = angular.module('D2RM', ['ngRoute', 'ngAnimate', 'angular-loading-bar'])
     .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
-        // TODO: Remove in production
-        var gui = require('nw.gui');
-        var win = gui.Window.get();
-        win.showDevTools();
-
         $routeProvider
             .when('/players', {
                 'controller'  : 'playersController',
