@@ -4,7 +4,7 @@ exports.config = {
     chromeDriver: './cache/0.12.0/win64/chromedriver', // relative path to node-webkit's chromedriver
     chromeOnly: true, // starting Selenium server isn't required in our case
     specs: ['spec/e2e/**/*.js'],
-    baseUrl: 'file:///D:/Code/D2RM-Angular/index.html?test=protractor',
+    baseUrl: 'file:///D:/Code/D2RM-Angular/index.html?test=protractor#',
 
     onPrepare: function() {
 
