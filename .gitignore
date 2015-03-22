@@ -12,3 +12,4 @@ locales
 build
 DB
 *.iml
+spec/coverage

@@ -23,7 +23,7 @@ module.exports = function(config) {
         'node_modules/angular-loading-bar/build/loading-bar.js',
         'assets/js/move.min.js',
         'app/**/*.js',
-        'spec/**/*.js'
+        'spec/unit/**/*.js'
     ],
 
 
@@ -35,13 +35,14 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+        'app/**/*.js': ['coverage']
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
 
     // web server port
@@ -68,6 +69,14 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: false,
+
+    coverageReporter: {
+      type : 'html',
+      dir : 'spec/coverage/',
+      subdir: function(browser) {
+          return browser.toLowerCase().split(/[ /-]/)[0];
+      }
+    }
   });
 };
