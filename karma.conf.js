@@ -15,12 +15,15 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+        'assets/js/jquery-2.1.3.min.js',
+        'assets/js/jquery-ui.min.js',
         'node_modules/angular/angular.js',
         'node_modules/angular-mocks/angular-mocks.js',
         'node_modules/angular-animate/angular-animate.js',
         'node_modules/angular-resource/angular-resource.js',
         'node_modules/angular-route/angular-route.js',
         'node_modules/angular-loading-bar/build/loading-bar.js',
+        'assets/js/sortable.js',
         'assets/js/move.min.js',
         'app/**/*.js',
         'spec/unit/**/*.js'
