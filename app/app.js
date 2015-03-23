@@ -1,4 +1,4 @@
-var app = angular.module('D2RM', ['ngRoute', 'ngAnimate', 'angular-loading-bar'])
+var app = angular.module('D2RM', ['ngRoute', 'ngAnimate', 'angular-loading-bar', 'ui.sortable'])
     .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
         $routeProvider
             .when('/players', {

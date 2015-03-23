@@ -6,6 +6,7 @@ app.controller("MainAppController", function($rootScope, $scope, $location, DBSe
 
     var gui = require('nw.gui');
     var win = gui.Window.get();
+    var prevPlaylistOrder = [];
 
     function processArgs() {
         var args = gui.App.argv;
@@ -34,4 +35,15 @@ app.controller("MainAppController", function($rootScope, $scope, $location, DBSe
     DBService.getAllPlaylists(function (data) {
         $rootScope.playlists = data;
     });
+
+    $rootScope.sortableOptions = {
+        update: function(e, ui) {prevPlaylistOrder = $rootScope.playlists.slice();},
+        stop: function(e, ui) {
+            $rootScope.playlists.forEach(function(val, i) {
+                if(val._id != prevPlaylistOrder[i]._id) {
+                    DBService.updatePlaylistPosition(val._id, i);
+                }
+            });
+        }
+    };
 });
