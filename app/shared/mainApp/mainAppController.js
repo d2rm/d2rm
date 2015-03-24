@@ -1,5 +1,4 @@
 app.controller("MainAppController", function($rootScope, $scope, $location, DBService){
-    $scope.searchTerm = null;
     $scope.version = require('./package.json').version;
     $scope.$location = $location;
     $rootScope.playlists = [];
@@ -36,7 +35,7 @@ app.controller("MainAppController", function($rootScope, $scope, $location, DBSe
         $rootScope.playlists = data;
     });
 
-    $rootScope.sortableOptions = {
+    $scope.sortableOptions = {
         update: function(e, ui) {prevPlaylistOrder = $rootScope.playlists.slice();},
         stop: function(e, ui) {
             $rootScope.playlists.forEach(function(val, i) {
