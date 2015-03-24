@@ -41,16 +41,38 @@ describe('DBService Test', function() {
     });
 
     describe('PlaylistDAO Queries', function() {
-        it('should call remove on the playlist database when calling deletePlaylist', function() {
-            DBService.deletePlaylist('test');
+        describe('getPlaylist method', function() {
+            beforeEach(function() {
+                db.playlist.findOne.and.returnValue(db.playlist);
+            });
 
-            expect(db.playlist.remove).toHaveBeenCalledWith({_id: 'test'});
+            it('should call findOne on the playlist database when calling getPlaylist', function() {
+                DBService.getPlaylist('TestID', cb);
+
+                expect(db.playlist.findOne).toHaveBeenCalledWith({_id: 'TestID'});
+            });
+
+            it('should call the callback function with ["Test"]', function() {
+                DBService.getPlaylist('TestID', cb);
+
+                expect(cb).toHaveBeenCalledWith(['Test']);
+            });
         });
 
-        it('should call update on playlist database when calling updatePlaylistPosition', function() {
-            DBService.updatePlaylistPosition('test', 'updatedName');
+        describe('deletePlaylist method', function() {
+            it('should call remove on the playlist database', function() {
+                DBService.deletePlaylist('test');
 
-            expect(db.playlist.update).toHaveBeenCalledWith({_id: 'test'}, {$set: {position: 'updatedName'}});
+                expect(db.playlist.remove).toHaveBeenCalledWith({_id: 'test'});
+            });
+        });
+
+        describe('updatePlaylistPosition method', function() {
+            it('should call update on playlist database', function() {
+                DBService.updatePlaylistPosition('test', 'updatedName');
+
+                expect(db.playlist.update).toHaveBeenCalledWith({_id: 'test'}, {$set: {position: 'updatedName'}});
+            });
         });
 
         describe('getAllPlaylists method', function() {
