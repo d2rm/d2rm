@@ -45,6 +45,7 @@
     "karma-coverage": "^0.2.7",
     "karma-jasmine": "^0.3.5",
     "karma-nodewebkit-launcher": "0.0.11",
+    "mockery": "^1.4.0",
     "protractor": "^2.0.0"
   }
 }
