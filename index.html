@@ -102,7 +102,7 @@
         </ul>
 
         <ul ui-sortable="sortableOptions" ng-model="playlists" class="sideMenu playlists">
-            <li class="sideMenuItem" ng-repeat="playlist in playlists"
+            <li playlist-context-menu class="sideMenuItem" ng-repeat="playlist in playlists"
                 ng-class="{ active : getLocationPath('/playlist/' + playlist._id) }">
                 <a href="index.html#/playlist/{{ playlist._id }}">
                     <i class="fa fa-align-justify"></i> {{ playlist.name }}
