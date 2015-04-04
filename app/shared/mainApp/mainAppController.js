@@ -7,7 +7,7 @@ app.controller("MainAppController", function($rootScope, $scope, $location, DBSe
     var win = gui.Window.get();
     var prevPlaylistOrder = [];
 
-    function processArgs() {
+    (function processArgs() {
         var args = gui.App.argv;
         var processed = [];
         args.forEach(function(arg) {
@@ -24,8 +24,7 @@ app.controller("MainAppController", function($rootScope, $scope, $location, DBSe
                 }
             }
         });
-    }
-    processArgs();
+    })();
 
     $scope.getLocationPath = function (path, startsWith) {
         return startsWith ? ($location.path().indexOf(path) == 0) : ($location.path() == path);
