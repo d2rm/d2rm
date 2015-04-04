@@ -1,4 +1,4 @@
-describe('newPlaylistController Test', function() {
+describe('PlaylistController Test', function() {
     beforeEach(module('D2RM'));
 
     var $controller, $rootScope, $routeParams, $scope, DBService;
