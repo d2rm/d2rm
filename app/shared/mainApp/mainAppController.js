@@ -39,7 +39,7 @@ app.controller("MainAppController", function($rootScope, $scope, $location, DBSe
         update: function(e, ui) {prevPlaylistOrder = $rootScope.playlists.slice();},
         stop: function(e, ui) {
             $rootScope.playlists.forEach(function(val, i) {
-                if(val._id != prevPlaylistOrder[i]._id) {
+                if(prevPlaylistOrder[i] && val._id != prevPlaylistOrder[i]._id) {
                     DBService.updatePlaylistPosition(val._id, i);
                 }
             });
