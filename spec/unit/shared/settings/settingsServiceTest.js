@@ -8,13 +8,17 @@ describe('settingsService Test', function() {
             warnOnUnregistered: false,
             useCleanCache: true
         });
-        crypto = module.exports = jasmine.createSpyObj('crypto', ['createCipher', 'createDecipher', 'update', 'final']);
+        crypto = module.exports = jasmine.createSpyObj('crypto', ['randomBytes', 'toString', 'createCipher', 'createDecipher', 'update', 'final']);
+        spyOn(history, 'back');
 
         mockery.registerMock('crypto', crypto);
 
         module('D2RM', function($provide) {
             storageService = jasmine.createSpyObj('storageService', ['get', 'set']);
-            storageService.get.and.returnValue(JSON.stringify({}));
+            storageService.get.and.callFake(function(arg) {
+                if(arg == 'key') return null;
+                return JSON.stringify({})
+            });
             $provide.value('storageService', storageService);
         });
 
@@ -30,7 +34,6 @@ describe('settingsService Test', function() {
     it('should call createCipher, update and final when calling save with steamPassword set', function() {
         crypto.createCipher.and.returnValue(crypto);
         crypto.update.and.returnValue(crypto);
-        spyOn(history, 'back');
         settingsService.settings.steamPassword = '123';
 
         settingsService.save();
@@ -38,5 +41,9 @@ describe('settingsService Test', function() {
         expect(crypto.createCipher).toHaveBeenCalled();
         expect(crypto.update).toHaveBeenCalled();
         expect(crypto.final).toHaveBeenCalled();
+    });
+
+    it('should generate a new unique security key if one does not exist', function() {
+        expect(crypto.randomBytes).toHaveBeenCalledWith(20);
     });
 });
