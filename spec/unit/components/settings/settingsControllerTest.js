@@ -1,62 +1,39 @@
-var mockery = require('mockery');
-
 describe('settingsController Test', function() {
-    var $controller, $rootScope, $scope, storageService, $location, settingsController, crypto;
-
-    beforeEach(module('D2RM'));
+    var $controller, $rootScope, $scope, settingsService, $location, settingsController;
 
     beforeEach(function() {
-        mockery.enable({
-            warnOnReplace: false,
-            warnOnUnregistered: false,
-            useCleanCache: true
-        });
-        crypto = module.exports = jasmine.createSpyObj('crypto', ['createCipher', 'createDecipher', 'update', 'final']);
+        spyOn(history, 'back');
+        module('D2RM');
+        inject(function (_$controller_, _$location_, _$rootScope_) {
+            $controller = _$controller_;
+            $rootScope = _$rootScope_;
+            $location = _$location_;
+            $scope = $rootScope.$new();
+            $scope.page = {title: 'placeholder'};
+            settingsService = jasmine.createSpyObj('settingsService', ['save']);
 
-        mockery.registerMock('crypto', crypto);
+            settingsController = $controller('settingsController', {
+                $scope: $scope,
+                settingsService: settingsService
+            });
+        })
     });
 
-    beforeEach(inject(function (_$controller_, _$location_, _$rootScope_) {
-        $controller = _$controller_;
-        $rootScope = _$rootScope_;
-        $location = _$location_;
-        $scope = $rootScope.$new();
-        $scope.page = {title: 'placeholder'};
-        storageService = jasmine.createSpyObj('storageService', ['get', 'set']);
-        storageService.get.and.returnValue(JSON.stringify({}));
+    it('should call save method on settingsService on save', function() {
+        settingsController.save();
 
-        settingsController = $controller('settingsController', {
-            $scope: $scope,
-            storageService: storageService
-        });
-    }));
+        expect(settingsService.save).toHaveBeenCalled();
+    });
 
     it('should navigate back to the previous page on cancel', function() {
-        spyOn(history, 'back');
-
         settingsController.cancel();
 
         expect(history.back).toHaveBeenCalled();
     });
 
     it('should navigate back to the previous page on save', function() {
-        spyOn(history, 'back');
-
         settingsController.save();
 
         expect(history.back).toHaveBeenCalled();
-    });
-
-    it('should call createCipher, update and final when calling save with steamPassword set', function() {
-        crypto.createCipher.and.returnValue(crypto);
-        crypto.update.and.returnValue(crypto);
-        spyOn(history, 'back');
-        settingsController.model.steamPassword = '123';
-
-        settingsController.save();
-
-        expect(crypto.createCipher).toHaveBeenCalled();
-        expect(crypto.update).toHaveBeenCalled();
-        expect(crypto.final).toHaveBeenCalled();
     });
 });

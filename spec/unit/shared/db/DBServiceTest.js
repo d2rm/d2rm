@@ -1,20 +1,20 @@
-var mockery = require('mockery');
-var db = {};
-var filenameMap = {
-    "DB/constants.adb": 'constants',
-    "DB/players.adb": 'players',
-    "DB/matches.adb": 'matches',
-    "DB/playlist.adb": 'playlist'
-};
-var nedbMock = function(val) {
-    var name = filenameMap[val.filename];
-    var nedb = jasmine.createSpyObj(name, ['insert', 'remove', 'update', 'find', 'findOne', 'exec', 'ensureIndex', 'sort']);
-    db[name] = nedb;
-    return nedb;
-};
-var DBService, cb;
-
 describe('DBService Test', function() {
+    var mockery = require('mockery');
+    var db = {};
+    var filenameMap = {
+        "DB/constants.adb": 'constants',
+        "DB/players.adb": 'players',
+        "DB/matches.adb": 'matches',
+        "DB/playlist.adb": 'playlist'
+    };
+    var nedbMock = function(val) {
+        var name = filenameMap[val.filename];
+        var nedb = jasmine.createSpyObj(name, ['insert', 'remove', 'update', 'find', 'findOne', 'exec', 'ensureIndex', 'sort']);
+        db[name] = nedb;
+        return nedb;
+    };
+    var DBService, cb, logger;
+
     beforeEach(function() {
         mockery.enable({
             warnOnReplace: false,
@@ -23,18 +23,21 @@ describe('DBService Test', function() {
         });
 
         mockery.registerMock('nedb', nedbMock);
+
+        module('D2RM', function($provide) {
+            logger = jasmine.createSpyObj('logger', ['info', 'error']);
+            $provide.value('loggerService', logger);
+        });
+
+        inject(function(_DBService_) {
+            DBService = _DBService_;
+            db.playlist.exec = function(cb) {
+                cb(null, ['Test']);
+            };
+            spyOn(db.playlist, 'exec').and.callThrough();
+            cb = jasmine.createSpy('callback');
+        })
     });
-
-    beforeEach(module('D2RM'));
-
-    beforeEach(inject(function(_DBService_) {
-        DBService = _DBService_;
-        db.playlist.exec = function(cb) {
-            cb(null, ['Test']);
-        };
-        spyOn(db.playlist, 'exec').and.callThrough();
-        cb = jasmine.createSpy('callback');
-    }));
 
     afterEach(function(){
         mockery.disable();
@@ -125,23 +128,21 @@ describe('DBService Test', function() {
                 db.playlist.insert = jasmine.createSpy('insert', function(val, cb) {
                     cb(null, val);
                 }).and.callThrough();
-                spyOn(console, 'info');
                 var testObj ={name: "Test"};
 
                 DBService.InsertNewPlaylist(testObj, cb);
 
-                expect(console.info).toHaveBeenCalledWith("new PlaylistDAO Object Created", testObj);
+                expect(logger.info).toHaveBeenCalledWith("new PlaylistDAO Object Created", testObj);
             });
 
-            it('should print error to console if there is an error on insert to playlist database', function() {
+            it('should log error if there is an error on insert to playlist database', function() {
                 db.playlist.insert = jasmine.createSpy('insert', function(val, cb) {
                     cb('error', val);
                 }).and.callThrough();
-                spyOn(console, 'error');
 
                 DBService.InsertNewPlaylist({name: "Test"}, cb);
 
-                expect(console.error).toHaveBeenCalledWith("PlaylistDAO Error: ", 'error');
+                expect(logger.error).toHaveBeenCalledWith("PlaylistDAO Error: ", 'error');
             });
         });
     });
