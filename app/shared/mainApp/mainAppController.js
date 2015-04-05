@@ -1,4 +1,4 @@
-app.controller("MainAppController", function($rootScope, $scope, $location, DBService){
+app.controller("MainAppController", function($rootScope, $scope, $location, DBService, loggerService){
     $scope.version = require('./package.json').version;
     $scope.$location = $location;
     $rootScope.playlists = [];
@@ -15,6 +15,9 @@ app.controller("MainAppController", function($rootScope, $scope, $location, DBSe
                 processed.push(arg);
                 switch (arg) {
                     case '--debug': {
+                        loggerService.transports.file.level = 'debug';
+                        loggerService.transports.console.level = 'debug';
+                        loggerService.transports.customLogger.level = 'debug';
                         return win.showDevTools(); //TODO: make this more robust - set winston log level
                     }
                     case '--version': {

@@ -13,3 +13,4 @@ build
 DB
 *.iml
 spec/coverage
+D2RM.log
