@@ -1,4 +1,4 @@
-var app = angular.module('D2RM', ['ngRoute', 'ngAnimate', 'angular-loading-bar', 'ui.sortable'])
+var app = angular.module('D2RM', ['ngRoute', 'ngAnimate', 'angular-loading-bar', 'ui.sortable', 'pascalprecht.translate'])
     .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
         $routeProvider
             .when('/players', {
@@ -31,4 +31,11 @@ var app = angular.module('D2RM', ['ngRoute', 'ngAnimate', 'angular-loading-bar',
                 'templateUrl' : 'app/components/home/homeView.html'
             })
             .otherwise({'redirectTo' : '/home'});
+    }])
+    .config(['$translateProvider', function($translateProvider) {
+        $translateProvider.useStaticFilesLoader({
+            prefix: 'languages/',
+            suffix: '.json'
+        });
+        $translateProvider.preferredLanguage('en_US');
     }]);
