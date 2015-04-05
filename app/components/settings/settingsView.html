@@ -4,7 +4,7 @@
     <label for="api-key" class="col-md-2">Steam Web API Key</label>
     <div class="col-md-8">
       <div class="input-group">
-        <input id="api-key" type="text" placeholder="Steam Web API Key..." name="api-key" class="form-control"/><span class="input-group-btn">
+        <input id="api-key" type="text" ng-model="settings.model.APIKey" placeholder="Steam Web API Key..." name="api-key" class="form-control"/><span class="input-group-btn">
           <button type="button" role="button" aria-disabled="false" ng-click="settings.getAPIKey()" class="btn btn-primary">Get One Here</button></span>
       </div>
     </div>

@@ -3,7 +3,7 @@ form.formWrapper.centered.form-horizontal
         label(for='api-key').col-md-2 Steam Web API Key
         .col-md-8
             .input-group
-                input#api-key.form-control(type='text', placeholder="Steam Web API Key...", name='api-key')
+                input#api-key.form-control(type='text', ng-model='settings.model.APIKey', placeholder="Steam Web API Key...", name='api-key')
                 span.input-group-btn
                     button.btn.btn-primary(type='button', role='button', aria-disabled='false' ng-click="settings.getAPIKey()") Get One Here
     .form-group.inputGroup
