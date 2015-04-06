@@ -1,4 +1,4 @@
-app.service('settingsService', ['storageService', function settingsService(storageService) {
+app.service('settingsService', ['storageService', '$translate', function settingsService(storageService, $translate) {
     var crypto = require('crypto'),
         algorithm = 'aes-256-ctr',
         key = storageService.get('key'),
@@ -34,11 +34,12 @@ app.service('settingsService', ['storageService', function settingsService(stora
         var settings = angular.copy(this.settings);
         settings.steamPassword = this.encrypt(settings.steamPassword);
         storageService.set('settings', JSON.stringify(settings));
+        $translate.use(this.settings.language);
     };
 
     this.settings = {
         showNotifications : "ShowNotifications",
-        language : "Language",
+        language : settings.language || 'en_US',
         theme : "Theme",
         APIKey: settings.APIKey || '',
         steamUsername: settings.steamUsername || '',

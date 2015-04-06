@@ -3,6 +3,8 @@ app.controller('settingsController', function ($scope, settingsService) {
 
     $scope.page.title = 'Settings';
 
+    this.languages = require('./languages/metadata.json').languages;
+
     this.model = settingsService.settings;
 
     this.getAPIKey = function() {

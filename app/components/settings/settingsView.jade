@@ -1,5 +1,9 @@
 form.formWrapper.centered.form-horizontal
     .form-group.inputGroup
+        label(for='language-select').col-md-2 Language
+        .col-md-4
+            select#language-select.form-control(ng-model='settings.model.language' ng-options='language.lang as language.label for language in settings.languages')
+    .form-group.inputGroup
         label(for='api-key').col-md-2 Steam Web API Key
         .col-md-8
             .input-group

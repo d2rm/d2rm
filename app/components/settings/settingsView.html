@@ -1,6 +1,12 @@
 
 <form class="formWrapper centered form-horizontal">
   <div class="form-group inputGroup">
+    <label for="language-select" class="col-md-2">Language</label>
+    <div class="col-md-4">
+      <select id="language-select" ng-model="settings.model.language" ng-options="language.lang as language.label for language in settings.languages" class="form-control"></select>
+    </div>
+  </div>
+  <div class="form-group inputGroup">
     <label for="api-key" class="col-md-2">Steam Web API Key</label>
     <div class="col-md-8">
       <div class="input-group">
