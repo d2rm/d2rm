@@ -23,6 +23,7 @@ module.exports = function(config) {
         'node_modules/angular-resource/angular-resource.js',
         'node_modules/angular-route/angular-route.js',
         'node_modules/angular-loading-bar/build/loading-bar.js',
+        'assets/js/angular-translate.min.js',
         'assets/js/sortable.js',
         'assets/js/move.min.js',
         'app/**/*.js',

@@ -3,14 +3,15 @@ describe('newPlaylistController test', function() {
 
     var $controller, $rootScope, $location, $scope;
 
-    beforeEach(inject(function(_$controller_, _$rootScope_, _$location_) {
+    beforeEach(inject(function(_$controller_, _$rootScope_, _$location_, $httpBackend) {
         $controller = _$controller_;
         $rootScope = _$rootScope_;
         $location = _$location_;
         $scope = $rootScope.$new();
         var mockedDBService = {InsertNewPlaylist: function(object, cb) {return cb(object);}};
-
         $rootScope.playlists = [];
+        $httpBackend.expectGET('languages/en_US.json')
+            .respond(200);
 
         var newPlaylistController = $controller('newPlaylistController', {
             $rootScope: $rootScope,

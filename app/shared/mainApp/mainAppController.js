@@ -49,5 +49,5 @@ app.controller("MainAppController", function($rootScope, $scope, $location, DBSe
         }
     };
 
-    dotaUtilService.updateConstantsFiles(function(res) {if(res) {logger.debug(res);}});
+    dotaUtilService.updateConstantsFiles(function(res) {if(res) {logger.debug(res);}}); // TODO: add proper callback
 });

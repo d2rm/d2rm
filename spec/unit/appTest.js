@@ -4,10 +4,12 @@ describe('Testing routes', function() {
     var route, location, rootScope;
 
     beforeEach(inject(
-        function( _$route_, _$location_, _$rootScope_ ) {
+        function( _$route_, _$location_, _$rootScope_, $httpBackend ) {
             location = _$location_;
             route = _$route_;
             rootScope = _$rootScope_;
+            $httpBackend.expectGET('languages/en_US.json')
+                .respond(200);
         }));
 
     describe('Players route', function() {

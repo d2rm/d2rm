@@ -1,7 +1,14 @@
 describe('settingsController Test', function() {
     var $controller, $rootScope, $scope, settingsService, $location, settingsController;
+    var mockery = require('mockery');
 
     beforeEach(function() {
+        mockery.enable({
+            warnOnReplace: false,
+            warnOnUnregistered: false,
+            useCleanCache: true
+        });
+        mockery.registerMock('./languages/metadata.json', {});
         spyOn(history, 'back');
         module('D2RM');
         inject(function (_$controller_, _$location_, _$rootScope_) {

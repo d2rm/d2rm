@@ -3,7 +3,7 @@ describe('PlaylistController Test', function() {
 
     var $controller, $rootScope, $routeParams, $scope, DBService;
 
-    beforeEach(inject(function (_$controller_, _$routeParams_, _$rootScope_) {
+    beforeEach(inject(function (_$controller_, _$routeParams_, _$rootScope_, $httpBackend) {
         $controller = _$controller_;
         $rootScope = _$rootScope_;
         $routeParams = _$routeParams_;
@@ -14,6 +14,8 @@ describe('PlaylistController Test', function() {
         DBService.getPlaylist = jasmine.createSpy('getPlaylist', function(id, cb) {
             cb({name: id});
         }).and.callThrough();
+        $httpBackend.expectGET('languages/en_US.json')
+            .respond(200);
 
         var playlistController = $controller('playlistController', {
             $scope: $scope,

@@ -22,7 +22,15 @@ describe('DBService Test', function() {
             useCleanCache: true
         });
 
+        var asyncMock = jasmine.createSpyObj('async', ['priorityQueue']);
         mockery.registerMock('nedb', nedbMock);
+        mockery.registerMock('async', asyncMock);
+        asyncMock.priorityQueue = function() {
+            return {push: function(task) {
+                task();
+            }}
+        };
+        spyOn(asyncMock, 'priorityQueue').and.callThrough();
 
         module('D2RM', function($provide) {
             logger = jasmine.createSpyObj('logger', ['info', 'error']);
@@ -66,7 +74,7 @@ describe('DBService Test', function() {
             it('should call remove on the playlist database', function() {
                 DBService.deletePlaylist('test');
 
-                expect(db.playlist.remove).toHaveBeenCalledWith({_id: 'test'});
+                expect(db.playlist.remove).toHaveBeenCalled();
             });
         });
 
