@@ -47,12 +47,12 @@
         <ul class="sideMenu main">
             <li class="sideMenuItem" ng-class="{ active : getLocationPath('/home') }">
                 <a href="index.html#/home">
-                    <i class="fa fa-gamepad"></i> Match History
+                    <i class="fa fa-gamepad"></i> {{ "MATCH_HISTORY" | translate }}
                 </a>
             </li>
             <li class="sideMenuItem" ng-class="{ active : getLocationPath('/players') }">
                 <a href="index.html#/players">
-                    <i class="fa fa-users"></i> Tracked Players
+                    <i class="fa fa-users"></i> {{ "TRACKED_PLAYERS" | translate }}
                 </a>
             </li>
 
@@ -60,17 +60,17 @@
 
             <li class="sideMenuItem" ng-class="{ active : getLocationPath('/history') }">
                 <a href="index.html#/history">
-                    <i class="fa fa-history"></i> History
+                    <i class="fa fa-history"></i> {{ "HISTORY" | translate }}
                 </a>
             </li>
             <li class="sideMenuItem" ng-class="{ active : getLocationPath('/settings') }">
                 <a href="index.html#/settings">
-                    <i class="fa fa-cog"></i> Settings
+                    <i class="fa fa-cog"></i> {{ "SETTINGS" | translate }}
                 </a>
             </li>
             <li class="sideMenuItem" ng-class="{ active : getLocationPath('/donate') }">
                 <a href="index.html#/donate">
-                    <i class="fa fa-money"></i> Donate
+                    <i class="fa fa-money"></i> {{ "DONATE" | translate }}
                 </a>
             </li>
 
@@ -78,7 +78,7 @@
 
             <li class="sideMenuItem" ng-class="{ active : getLocationPath('/newplaylist') }">
                 <a href="index.html#/newplaylist">
-                    <i class="fa fa-plus-square"></i> New Playlist
+                    <i class="fa fa-plus-square"></i> {{ "NEW_PLAYLIST" | translate }}
                 </a>
             </li>
         </ul>

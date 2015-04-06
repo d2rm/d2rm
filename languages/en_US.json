@@ -1,3 +1,9 @@
 {
-  "DONATIONS": "Donations"
+  "DONATIONS": "Donations",
+  "MATCH_HISTORY": "Match History",
+  "TRACKED_PLAYERS": "Tracked Players",
+  "HISTORY": "History",
+  "SETTINGS": "Settings",
+  "DONATE": "Donate",
+  "NEW_PLAYLIST": "New Group"
 }
