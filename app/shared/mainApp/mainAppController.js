@@ -18,8 +18,9 @@ app.controller("MainAppController", function($rootScope, $scope, $location, DBSe
                         loggerService.transports.file.level = 'debug';
                         loggerService.transports.console.level = 'debug';
                         loggerService.transports.customLogger.level = 'debug';
-                        return win.showDevTools(); //TODO: make this more robust - set winston log level
+                        return win.showDevTools();
                     }
+                    case '-v':
                     case '--version': {
                         console.log("DOTA 2 Replay Manager v" + $scope.version);
                         return gui.App.quit();
