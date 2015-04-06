@@ -1,4 +1,4 @@
-app.controller("MainAppController", function($rootScope, $scope, $location, DBService, loggerService){
+app.controller("MainAppController", function($rootScope, $scope, $location, DBService, loggerService, dotaUtilService){
     $scope.version = require('./package.json').version;
     $scope.$location = $location;
     $rootScope.playlists = [];
@@ -47,4 +47,6 @@ app.controller("MainAppController", function($rootScope, $scope, $location, DBSe
             });
         }
     };
+
+    dotaUtilService.updateConstantsFiles(function(res) {if(res) {logger.debug(res);}});
 });
