@@ -14,25 +14,25 @@ app.service('settingsService', ['storageService', '$translate', function setting
         }
     }
 
-    this.encrypt = function encrypt(text){
+    function encrypt(text){
         if(!text) return '';
         var cipher = crypto.createCipher(algorithm,key);
         var crypted = cipher.update(text,'utf8','hex');
         crypted += cipher.final('hex');
         return crypted;
-    };
+    }
 
-    this.decrypt = function decrypt(text){
+    function decrypt(text){
         if(!text) return '';
         var decipher = crypto.createDecipher(algorithm,key);
         var dec = decipher.update(text,'hex','utf8');
         dec += decipher.final('utf8');
         return dec;
-    };
+    }
 
     this.save = function save() {
         var settings = angular.copy(this.settings);
-        settings.steamPassword = this.encrypt(settings.steamPassword);
+        settings.steamPassword = encrypt(settings.steamPassword);
         storageService.set('settings', JSON.stringify(settings));
         $translate.use(this.settings.language);
     };
@@ -43,7 +43,7 @@ app.service('settingsService', ['storageService', '$translate', function setting
         theme : "Theme",
         APIKey: settings.APIKey || '',
         steamUsername: settings.steamUsername || '',
-        steamPassword: this.decrypt(settings.steamPassword) || '',
+        steamPassword: decrypt(settings.steamPassword) || '',
         saveAllMatches: settings.saveAllMatches
     };
 }]);

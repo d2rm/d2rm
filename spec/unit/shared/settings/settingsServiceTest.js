@@ -10,6 +10,10 @@ describe('settingsService Test', function() {
         });
         crypto = module.exports = jasmine.createSpyObj('crypto', ['randomBytes', 'toString', 'createCipher', 'createDecipher', 'update', 'final']);
         spyOn(history, 'back');
+        crypto.createCipher.and.returnValue(crypto);
+        crypto.createDecipher.and.returnValue(crypto);
+        crypto.randomBytes.and.returnValue(crypto);
+        crypto.update.and.returnValue(crypto);
 
         mockery.registerMock('crypto', crypto);
 
@@ -17,7 +21,7 @@ describe('settingsService Test', function() {
             storageService = jasmine.createSpyObj('storageService', ['get', 'set']);
             storageService.get.and.callFake(function(arg) {
                 if(arg == 'key') return null;
-                return JSON.stringify({})
+                return JSON.stringify({steamPassword: 'Test'})
             });
             $provide.value('storageService', storageService);
         });
@@ -32,8 +36,7 @@ describe('settingsService Test', function() {
     });
 
     it('should call createCipher, update and final when calling save with steamPassword set', function() {
-        crypto.createCipher.and.returnValue(crypto);
-        crypto.update.and.returnValue(crypto);
+
         settingsService.settings.steamPassword = '123';
 
         settingsService.save();
@@ -45,5 +48,12 @@ describe('settingsService Test', function() {
 
     it('should generate a new unique security key if one does not exist', function() {
         expect(crypto.randomBytes).toHaveBeenCalledWith(20);
+        expect(storageService.set).toHaveBeenCalled();
+    });
+
+    it('should call createDecipher, update and final when steamPassword is retrieved', function() {
+        expect(crypto.createDecipher).toHaveBeenCalled();
+        expect(crypto.update).toHaveBeenCalled();
+        expect(crypto.final).toHaveBeenCalled();
     });
 });
