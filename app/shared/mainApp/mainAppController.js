@@ -3,7 +3,7 @@ app.controller("MainAppController", function($rootScope, $scope, $location, DBSe
     $scope.$location = $location;
     $rootScope.playlists = [];
 
-    var gui = require('nw.gui');
+    var gui = global.window.nwDispatcher.requireNwGui();
     var win = gui.Window.get();
     var prevPlaylistOrder = [];
 
@@ -48,6 +48,4 @@ app.controller("MainAppController", function($rootScope, $scope, $location, DBSe
             });
         }
     };
-
-    dotaUtilService.updateConstantsFiles(function(res) {if(res) {logger.debug(res);}}); // TODO: add proper callback
 });
