@@ -63,11 +63,14 @@ describe('MainAppController Test', function() {
             expect(path).toBeTruthy();
         });
 
-        it('should set playlists in rootScope using DBService', function() {
-            DBService.getAllPlaylists.and.callFake(function(cb) {
-                cb(['test']);
-                expect($rootScope.playlists).toEqual(['test']);
-            });
+        it('should call getAllPlaylists method on DBService', function() {
+            expect(DBService.getAllPlaylists).toHaveBeenCalled();
+        });
+
+        it('should set playlists on $rootScope when $rootScope.setPlaylists method is called', function() {
+            $rootScope.setPlaylists([{_id: '123'}]);
+
+            expect($rootScope.playlists).toEqual([{_id: '123'}]);
         });
 
         it('should set prevPlaylistOrder on sortableOptions.update by copying $rootScope.playlists', function() {

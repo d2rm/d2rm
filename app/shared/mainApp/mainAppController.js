@@ -34,9 +34,11 @@ app.controller("MainAppController", function($rootScope, $scope, $location, DBSe
         return startsWith ? ($location.path().indexOf(path) == 0) : ($location.path() == path);
     };
 
-    DBService.getAllPlaylists(function (data) {
+    $rootScope.setPlaylists = function (data) {
         $rootScope.playlists = data;
-    });
+    };
+
+    DBService.getAllPlaylists($rootScope.setPlaylists);
 
     $scope.sortableOptions = {
         update: function(e, ui) {prevPlaylistOrder = $rootScope.playlists.slice();},
