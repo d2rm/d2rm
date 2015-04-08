@@ -4,6 +4,9 @@ app.factory('DBService', ['loggerService', function (logger) {
         var self = this;
         var async = require("async");
         var q = async.priorityQueue(function(task, cb) {task(cb);}, 100);
+        q.drain = function() {
+            logger.debug('queue is drained');
+        };
         self.Datastore = require("nedb");
         self.dbFolder = "DB";
         self.db = {

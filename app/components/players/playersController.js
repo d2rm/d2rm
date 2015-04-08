@@ -1,4 +1,4 @@
-app.controller('playersController', function ($scope, apiService) {
+app.controller('playersController', function ($scope) {
     $scope.player = {
         id : null
     };
