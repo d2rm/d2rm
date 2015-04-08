@@ -35,6 +35,7 @@ app.service('settingsService', ['storageService', '$translate', function setting
         settings.steamPassword = encrypt(settings.steamPassword);
         storageService.set('settings', JSON.stringify(settings));
         $translate.use(this.settings.language);
+        alertify.success('Settings saved');
     };
 
     this.settings = {

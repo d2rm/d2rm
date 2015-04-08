@@ -9,26 +9,11 @@
     <link rel="stylesheet" href="assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" href="assets/css/alertify.min.css">
+    <link rel="stylesheet" href="assets/css/alertify-bootstrap.min.css">
 </head>
 
 <body ng-controller="MainAppController">
-
-<div id="modal">
-    <div class="modalWrapper">
-        <div class="controls">
-            <i class="fa fa-close"></i>
-        </div>
-        <div class="header">
-            Title
-        </div>
-        <div class="content">
-            Content
-        </div>
-        <div class="footer">
-            Footer
-        </div>
-    </div>
-</div>
 
 <header>
     <div class="logo pullLeft">
@@ -114,7 +99,16 @@
 <script src="node_modules/angular-route/angular-route.min.js"></script>
 <script src="node_modules/angular-loading-bar/build/loading-bar.min.js"></script>
 <script src="assets/js/angular-translate.min.js"></script>
+<script src="assets/js/ui-bootstrap-tpls-0.12.1.min.js"></script>
 <script src="assets/js/sortable.js"></script>
+<script src="assets/js/alertify.min.js"></script>
+<script type="text/javascript">
+    //override defaults
+    alertify.defaults.transition = "slide";
+    alertify.defaults.theme.ok = "btn btn-primary";
+    alertify.defaults.theme.cancel = "btn btn-danger";
+    alertify.defaults.theme.input = "form-control";
+</script>
 <script>
     angular.element(document).ready(function () {
         if (location.search.indexOf("test=protractor") > -1) {
