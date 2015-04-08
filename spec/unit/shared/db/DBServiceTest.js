@@ -21,16 +21,15 @@ describe('DBService Test', function() {
             warnOnUnregistered: false,
             useCleanCache: true
         });
-
+        cb = jasmine.createSpy('callback');
         var asyncMock = jasmine.createSpyObj('async', ['priorityQueue']);
-        mockery.registerMock('nedb', nedbMock);
-        mockery.registerMock('async', asyncMock);
-        asyncMock.priorityQueue = function() {
-            return {push: function(task) {
-                task();
+        asyncMock.priorityQueue.and.callFake(function() {
+            return {push: function(task, priority, callback) {
+                task(cb);
             }}
-        };
-        spyOn(asyncMock, 'priorityQueue').and.callThrough();
+        });
+        mockery.registerMock('async', asyncMock);
+        mockery.registerMock('nedb', nedbMock);
 
         module('D2RM', function($provide) {
             logger = jasmine.createSpyObj('logger', ['info', 'error']);
@@ -39,11 +38,9 @@ describe('DBService Test', function() {
 
         inject(function(_DBService_) {
             DBService = _DBService_;
-            db.playlist.exec = function(cb) {
+            db.playlist.exec.and.callFake(function(cb) {
                 cb(null, ['Test']);
-            };
-            spyOn(db.playlist, 'exec').and.callThrough();
-            cb = jasmine.createSpy('callback');
+            });
         })
     });
 
@@ -82,7 +79,7 @@ describe('DBService Test', function() {
             it('should call update on playlist database', function() {
                 DBService.updatePlaylistPosition('test', 'updatedName');
 
-                expect(db.playlist.update).toHaveBeenCalledWith({_id: 'test'}, {$set: {position: 'updatedName'}});
+                expect(db.playlist.update).toHaveBeenCalled();
             });
         });
 
