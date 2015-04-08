@@ -1,5 +1,5 @@
 app.directive('playlistContextMenu', function($rootScope, DBService){
-    var gui = require('nw.gui');
+    var gui = global.window.nwDispatcher.requireNwGui();
 
     function createDeleteMenuItem($scope) {
         var playlist = $scope.playlist;
