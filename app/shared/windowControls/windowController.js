@@ -1,5 +1,5 @@
 app.controller('windowController', function ($scope, storageService) {
-    var gui = require('nw.gui'),
+    var gui = global.window.nwDispatcher.requireNwGui(),
         win = gui.Window.get(),
         storage = storageService;
 
