@@ -26,6 +26,10 @@ describe('settingsController Test', function() {
         })
     });
 
+    afterEach(function(){
+        mockery.disable();
+    });
+
     it('should call save method on settingsService on save', function() {
         settingsController.save();
 
