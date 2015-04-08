@@ -1,6 +1,7 @@
-Refactoring D2RM to angular based application.
+[![Coverage Status](https://coveralls.io/repos/d2rm/d2rm/badge.svg?branch=dev-angular)](https://coveralls.io/r/d2rm/d2rm?branch=dev-angular)
+Refactoring D2RM to an angular based application.
 
-In order to start working on this repository, you will have to do the following steps:
+In order to start working on this repository, you will have to follow these steps:
 - Download and install Ruby
 - install compass gem:
   ```

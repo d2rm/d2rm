@@ -76,7 +76,7 @@ module.exports = function(config) {
     singleRun: false,
 
     coverageReporter: {
-      type : 'html',
+      type : 'lcov',
       dir : 'spec/coverage/',
       subdir: function(browser) {
           return browser.toLowerCase().split(/[ /-]/)[0];

@@ -14,3 +14,4 @@ DB
 *.iml
 spec/coverage
 D2RM.log
+.coveralls.yml
