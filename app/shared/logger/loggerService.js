@@ -10,7 +10,7 @@ app.factory('loggerService', function() {
     util.inherits(CustomLogger, winston.Transport);
 
     CustomLogger.prototype.log = function (level, msg, meta, callback) {
-        meta ? console[level](msg, meta) : console[level](msg);
+        (meta && !jQuery.isEmptyObject(meta)) ? console[level](msg, meta) : console[level](msg);
         if(callback) callback(null, true);
     };
 
