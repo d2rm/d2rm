@@ -10,8 +10,8 @@ app.factory('loggerService', function() {
     util.inherits(CustomLogger, winston.Transport);
 
     CustomLogger.prototype.log = function (level, msg, meta, callback) {
-        console[level](msg, meta);
-        callback(null, true);
+        meta ? console[level](msg, meta) : console[level](msg);
+        if(callback) callback(null, true);
     };
 
     var logger = new (winston.Logger)({
