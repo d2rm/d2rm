@@ -1,5 +1,12 @@
 #DOTA 2 Replay Manager
 
+## Current status (April 2016)
+This project hasn't been in active development since Valve announced their reborn client (which included some of the features found in this replay manager).
+
+I have not had the time to develop this actively but I may dedicate some time to updating the application if there's enough demand. I will guage interest by looking at the issue tracker (please keep discussion to issue [#27](https://github.com/d2rm/d2rm/issues/27)).
+
+## Description
+
 DOTA 2 Replay Manager (D2RM) is an application for Windows, Mac and Linux that lets you parse and manage your DOTA 2 replays.
 It requires no sign up, displays no ads and is 100% safe. 
 
